@@ -67,20 +67,27 @@ export async function executeHappySettings(
 
     if (!config) {
       // Create default configuration
-      config = {
+      const newConfig = {
         guildId,
         channelId: interaction.channelId, // Default to current channel
         timezone: SCHEDULER.DEFAULT_TIMEZONE,
-        cadence: SCHEDULER.DEFAULT_CADENCE,
-        activeDays: SCHEDULER.DEFAULT_ACTIVE_DAYS,
-        scheduleTimes: SCHEDULER.DEFAULT_TIMES_2,
+        cadence: SCHEDULER.DEFAULT_CADENCE as 2 | 3,
+        activeDays: [...SCHEDULER.DEFAULT_ACTIVE_DAYS],
+        scheduleTimes: [...SCHEDULER.DEFAULT_TIMES_2],
         contextualEnabled: false,
         createdAt: new Date(),
         updatedAt: new Date(),
       };
 
-      guildConfigRepo.upsert(config);
+      guildConfigRepo.upsert(newConfig);
       console.log(`✨ Created default config for guild ${interaction.guild.name}`);
+
+      // Re-fetch to ensure we have the saved config
+      config = guildConfigRepo.get(guildId);
+
+      if (!config) {
+        throw new Error('Failed to create guild configuration');
+      }
     }
 
     // Build settings embed
