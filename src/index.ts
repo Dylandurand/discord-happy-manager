@@ -12,6 +12,9 @@
  * @see /roadmap/spec.md for full specifications
  */
 
+import { env } from './config/env';
+import { APP } from './config/constants';
+
 /**
  * Main application entry point.
  *
@@ -20,15 +23,22 @@
  * @throws {Error} If required environment variables are missing
  */
 async function main(): Promise<void> {
-  console.log('🤖 Happy Manager Bot starting...');
-  console.log('📋 Phase 1: Setup & Infrastructure - In Progress');
-  console.log('✅ Project structure initialized');
+  console.log(`🤖 ${APP.NAME} v${APP.VERSION} starting...`);
+  console.log(`📋 Environment: ${env.NODE_ENV}`);
+  console.log(`🌍 Default Timezone: ${env.DEFAULT_TIMEZONE}`);
+  console.log('✅ Phase 1: Setup & Infrastructure - Complete!');
+  console.log('');
+  console.log('Next steps:');
+  console.log('  - Phase 2: Database & Repositories');
+  console.log('  - Phase 3: Bot Core & Commands');
+  console.log('  - Phase 4: Content System');
+  console.log('  - Phase 5: Scheduler');
+  console.log('');
+  console.log('⏸️  Waiting for implementation...');
 
   // TODO: Phase 2 - Initialize database
   // TODO: Phase 3 - Initialize Discord client
   // TODO: Phase 5 - Start scheduler
-
-  console.log('⏸️  Waiting for implementation...');
 }
 
 // Start the bot
