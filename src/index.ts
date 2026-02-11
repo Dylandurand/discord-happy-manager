@@ -32,7 +32,7 @@ async function main(): Promise<void> {
 
   // Phase 2: Initialize database
   console.log('🔧 Initializing database...');
-  const db = getDatabase();
+  getDatabase();
   console.log('');
 
   // Test repositories
