@@ -1,1 +1,37 @@
-/roadmap
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# TypeScript build
+dist/
+*.tsbuildinfo
+
+# Database
+*.db
+*.db-shm
+*.db-wal
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+logs/
+*.log
+
+# Resources (IA only - not committed)
+resources/
+
+# OS
+.DS_Store
+Thumbs.db
