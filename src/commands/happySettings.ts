@@ -15,7 +15,7 @@
  */
 
 import type { ChatInputCommandInteraction } from 'discord.js';
-import { EmbedBuilder } from 'discord.js';
+import { EmbedBuilder, MessageFlags } from 'discord.js';
 import { guildConfigRepo } from '@/db';
 import { DISCORD, SCHEDULER } from '@/config/constants';
 import { isAdmin, replyEphemeral } from '@/utils/commandHelpers';
@@ -90,10 +90,136 @@ export async function executeHappySettings(
       }
     }
 
+    // Check if user provided any options (update mode)
+    const channel = interaction.options.getChannel('channel');
+    const timezone = interaction.options.getString('timezone');
+    const cadence = interaction.options.getInteger('cadence');
+    const activeDaysStr = interaction.options.getString('active_days');
+    const slot1 = interaction.options.getString('slot1');
+    const slot2 = interaction.options.getString('slot2');
+    const slot3 = interaction.options.getString('slot3');
+    const contextualMode = interaction.options.getBoolean('contextual_mode');
+
+    const hasUpdates = channel || timezone || cadence || activeDaysStr || slot1 || slot2 || slot3 || contextualMode !== null;
+
+    if (hasUpdates) {
+      // Update mode - validate and apply changes
+      const updates: Partial<typeof config> = {};
+
+      if (channel) {
+        // Check if it's a valid text channel type
+        if (channel.type !== 0 && channel.type !== 5) { // 0 = GuildText, 5 = GuildAnnouncement
+          await replyEphemeral(interaction, '❌ Please select a text channel');
+          return;
+        }
+        updates.channelId = channel.id;
+      }
+
+      if (timezone) {
+        // Basic timezone validation
+        try {
+          new Intl.DateTimeFormat('en-US', { timeZone: timezone });
+          updates.timezone = timezone;
+        } catch {
+          await replyEphemeral(
+            interaction,
+            `❌ Invalid timezone: ${timezone}\n💡 Examples: Europe/Paris, America/New_York, Asia/Tokyo`
+          );
+          return;
+        }
+      }
+
+      if (cadence) {
+        updates.cadence = cadence as 2 | 3;
+      }
+
+      if (contextualMode !== null) {
+        updates.contextualEnabled = contextualMode;
+      }
+
+      if (activeDaysStr) {
+        // Parse and validate active days
+        const dayNumbers = activeDaysStr.split(',').map((d) => parseInt(d.trim(), 10));
+        if (dayNumbers.some((d) => isNaN(d) || d < 1 || d > 7)) {
+          await replyEphemeral(
+            interaction,
+            '❌ Invalid active_days format. Use comma-separated numbers (1=Mon, 7=Sun)\n💡 Example: 1,2,3,4,5'
+          );
+          return;
+        }
+        updates.activeDays = dayNumbers;
+      }
+
+      // Handle schedule times
+      const newSlots: string[] = [];
+      if (slot1) {
+        if (!isValidTimeFormat(slot1)) {
+          await replyEphemeral(interaction, `❌ Invalid time format for slot1: ${slot1}\n💡 Use HH:MM (e.g., 09:15)`);
+          return;
+        }
+        newSlots.push(slot1);
+      }
+      if (slot2) {
+        if (!isValidTimeFormat(slot2)) {
+          await replyEphemeral(interaction, `❌ Invalid time format for slot2: ${slot2}\n💡 Use HH:MM (e.g., 16:30)`);
+          return;
+        }
+        newSlots.push(slot2);
+      }
+      if (slot3) {
+        if (!isValidTimeFormat(slot3)) {
+          await replyEphemeral(interaction, `❌ Invalid time format for slot3: ${slot3}\n💡 Use HH:MM (e.g., 12:45)`);
+          return;
+        }
+        newSlots.push(slot3);
+      }
+
+      // If any slots provided, validate count matches cadence
+      if (newSlots.length > 0) {
+        const targetCadence = updates.cadence ?? config.cadence;
+        if (newSlots.length !== targetCadence) {
+          await replyEphemeral(
+            interaction,
+            `❌ You must provide ${targetCadence} time slots for cadence ${targetCadence}\n💡 Provided: ${newSlots.length} slot(s)`
+          );
+          return;
+        }
+        updates.scheduleTimes = newSlots;
+      } else if (updates.cadence && updates.cadence !== config.cadence) {
+        // If cadence changed without explicit slots, auto-adjust to default times
+        // This prevents cadence/schedule times inconsistency
+        const defaultTimes = updates.cadence === 2
+          ? SCHEDULER.DEFAULT_TIMES_2
+          : SCHEDULER.DEFAULT_TIMES_3;
+        updates.scheduleTimes = [...defaultTimes];
+        console.log(
+          `⚠️  Cadence changed from ${config.cadence} to ${updates.cadence} without explicit slots. ` +
+          `Auto-adjusting schedule times to: ${defaultTimes.join(', ')}`
+        );
+      }
+
+      // Apply updates
+      const updatedConfig = {
+        ...config,
+        ...updates,
+        updatedAt: new Date(),
+      };
+
+      guildConfigRepo.upsert(updatedConfig);
+      console.log(`⚙️  Updated config for guild ${interaction.guild.name}`);
+
+      // Re-fetch updated config
+      config = guildConfigRepo.get(guildId) ?? config;
+    }
+
     // Build settings embed
     const embed = new EmbedBuilder()
       .setTitle('⚙️ Happy Manager Settings')
-      .setDescription(`Current configuration for **${interaction.guild.name}**`)
+      .setDescription(
+        hasUpdates
+          ? `✅ Configuration updated successfully!\n\nCurrent configuration for **${interaction.guild.name}**`
+          : `Current configuration for **${interaction.guild.name}**`
+      )
       .setColor(DISCORD.COLOR_INFO)
       .addFields(
         {
@@ -128,13 +254,13 @@ export async function executeHappySettings(
         }
       )
       .setFooter({
-        text: '💡 Configuration will be editable via buttons in Phase 3 completion',
+        text: '💡 Use /happy settings with options to modify configuration',
       })
       .setTimestamp();
 
     await interaction.reply({
       embeds: [embed],
-      ephemeral: true,
+      flags: MessageFlags.Ephemeral,
     });
 
     console.log(
@@ -142,10 +268,14 @@ export async function executeHappySettings(
     );
   } catch (error) {
     console.error('❌ Error executing /happy settings:', error);
-    await replyEphemeral(
-      interaction,
-      '❌ Failed to load settings. Please try again later.'
-    );
+
+    // Only reply if we haven't already responded
+    if (!interaction.replied && !interaction.deferred) {
+      await replyEphemeral(
+        interaction,
+        '❌ Failed to load settings. Please try again later.'
+      );
+    }
   }
 }
 
@@ -198,4 +328,23 @@ function formatActiveDays(activeDays: number[]): string {
   }
 
   return days.join(', ');
+}
+
+/**
+ * Validates time format (HH:MM).
+ *
+ * @param time - Time string to validate
+ *
+ * @returns True if valid HH:MM format
+ *
+ * @example
+ * ```typescript
+ * isValidTimeFormat('09:15'); // true
+ * isValidTimeFormat('9:15'); // false (needs leading zero)
+ * isValidTimeFormat('25:00'); // false (invalid hour)
+ * ```
+ */
+function isValidTimeFormat(time: string): boolean {
+  const timeRegex = /^([0-1][0-9]|2[0-3]):([0-5][0-9])$/;
+  return timeRegex.test(time);
 }

@@ -24,7 +24,7 @@
 
 import { Client, GatewayIntentBits, Events, ActivityType } from 'discord.js';
 import { env } from '@/config/env';
-import { APP } from '@/config/constants';
+import { handleMessageCreate } from '@/listeners/onMessageCreate';
 
 /**
  * Discord client instance.
@@ -32,12 +32,16 @@ import { APP } from '@/config/constants';
  * @remarks
  * Exported for use in commands and other modules.
  * Do not create multiple clients - use this singleton.
+ *
+ * @security
+ * GuildMessages and MessageContent intents are included to support contextual mode.
+ * These are only actively used when contextualEnabled=true in guild config.
  */
 export const client = new Client({
   intents: [
     GatewayIntentBits.Guilds, // Required for slash commands
-    // GuildMessages and MessageContent are only needed for contextual mode
-    // We'll add them dynamically if needed
+    GatewayIntentBits.GuildMessages, // Required for contextual mode
+    GatewayIntentBits.MessageContent, // Required to read message content for contextual mode
   ],
 });
 
@@ -98,6 +102,9 @@ export async function initializeClient(): Promise<void> {
       console.log(`➖ Left guild: ${guild.name} (ID: ${guild.id})`);
       // TODO: Cleanup guild config and data
     });
+
+    // Message create event (for contextual mode)
+    client.on(Events.MessageCreate, handleMessageCreate);
 
     // Login to Discord
     client

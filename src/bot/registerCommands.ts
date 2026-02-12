@@ -60,6 +60,58 @@ const commands = [
       subcommand
         .setName('settings')
         .setDescription('Configure Happy Manager for this server (Admin only)')
+        .addChannelOption((option) =>
+          option
+            .setName('channel')
+            .setDescription('Channel where scheduled messages will be posted')
+            .setRequired(false)
+        )
+        .addStringOption((option) =>
+          option
+            .setName('timezone')
+            .setDescription('Server timezone (e.g., Europe/Paris, America/New_York)')
+            .setRequired(false)
+        )
+        .addIntegerOption((option) =>
+          option
+            .setName('cadence')
+            .setDescription('Number of messages per day')
+            .setRequired(false)
+            .addChoices(
+              { name: '2 messages per day', value: 2 },
+              { name: '3 messages per day', value: 3 }
+            )
+        )
+        .addStringOption((option) =>
+          option
+            .setName('active_days')
+            .setDescription('Active days (1=Mon, 7=Sun, e.g., "1,2,3,4,5" for weekdays)')
+            .setRequired(false)
+        )
+        .addStringOption((option) =>
+          option
+            .setName('slot1')
+            .setDescription('First message time (HH:MM format, e.g., 09:15)')
+            .setRequired(false)
+        )
+        .addStringOption((option) =>
+          option
+            .setName('slot2')
+            .setDescription('Second message time (HH:MM format, e.g., 16:30)')
+            .setRequired(false)
+        )
+        .addStringOption((option) =>
+          option
+            .setName('slot3')
+            .setDescription('Third message time (HH:MM format, e.g., 12:45)')
+            .setRequired(false)
+        )
+        .addBooleanOption((option) =>
+          option
+            .setName('contextual_mode')
+            .setDescription('Enable contextual responses to keywords (stress, fatigue, etc.)')
+            .setRequired(false)
+        )
     )
     // /happy test [count?]
     .addSubcommand((subcommand) =>
@@ -74,12 +126,25 @@ const commands = [
             .setMinValue(1)
             .setMaxValue(5)
         )
+        .addStringOption((option) =>
+          option
+            .setName('category')
+            .setDescription('Filter by category (optional)')
+            .setRequired(false)
+            .addChoices(
+              { name: 'Motivation', value: 'motivation' },
+              { name: 'Wellbeing', value: 'wellbeing' },
+              { name: 'Focus', value: 'focus' },
+              { name: 'Team', value: 'team' },
+              { name: 'Fun', value: 'fun' }
+            )
+        )
     )
-    // /happy kudos @user [message?]
+    // /happy kudos @user category reason impact
     .addSubcommand((subcommand) =>
       subcommand
         .setName('kudos')
-        .setDescription('Send kudos to a team member')
+        .setDescription('Send structured kudos to a team member')
         .addUserOption((option) =>
           option
             .setName('user')
@@ -88,10 +153,31 @@ const commands = [
         )
         .addStringOption((option) =>
           option
-            .setName('message')
-            .setDescription('Optional kudos message')
-            .setRequired(false)
-            .setMaxLength(120)
+            .setName('category')
+            .setDescription('Kudos category')
+            .setRequired(true)
+            .addChoices(
+              { name: 'Vente', value: 'vente' },
+              { name: 'Discipline / Focus', value: 'discipline' },
+              { name: 'Entraide / Contribution', value: 'entraide' },
+              { name: 'Leadership', value: 'leadership' },
+              { name: 'Créativité / Innovation', value: 'creativite' },
+              { name: 'Persévérance / Résilience', value: 'perseverance' }
+            )
+        )
+        .addStringOption((option) =>
+          option
+            .setName('reason')
+            .setDescription('What did they do? (la raison)')
+            .setRequired(true)
+            .setMaxLength(200)
+        )
+        .addStringOption((option) =>
+          option
+            .setName('impact')
+            .setDescription('What was the impact? (l\'impact observé)')
+            .setRequired(true)
+            .setMaxLength(200)
         )
     ),
 ].map((command) => command.toJSON());

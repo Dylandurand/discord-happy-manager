@@ -1,12 +1,13 @@
 {
   "name": "discord-happy-manager",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Discord bot for motivational messages and team well-being",
   "main": "dist/index.js",
   "scripts": {
     "dev": "nodemon --exec ts-node src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
+    "register": "ts-node -r tsconfig-paths/register scripts/register.ts",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "test": "vitest",

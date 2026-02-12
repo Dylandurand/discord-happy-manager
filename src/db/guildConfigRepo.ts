@@ -37,6 +37,7 @@
  * ```
  */
 
+import type Database from 'better-sqlite3';
 import type { GuildConfig } from '@/types';
 import { getDatabase, DatabaseError } from './db';
 
@@ -44,9 +45,19 @@ import { getDatabase, DatabaseError } from './db';
  * Guild configuration repository.
  *
  * @remarks
- * Singleton instance exported for application-wide use.
+ * Accepts an optional Database instance for dependency injection (useful in tests).
+ * Falls back to the application singleton when no db is provided.
  */
-class GuildConfigRepository {
+export class GuildConfigRepository {
+  private readonly _db: Database.Database | undefined;
+
+  constructor(db?: Database.Database) {
+    this._db = db;
+  }
+
+  private db(): Database.Database {
+    return this._db ?? getDatabase();
+  }
   /**
    * Gets guild configuration by guild ID.
    *
@@ -66,7 +77,7 @@ class GuildConfigRepository {
    */
   get(guildId: string): GuildConfig | null {
     try {
-      const db = getDatabase();
+      const db = this.db();
       const stmt = db.prepare(`
         SELECT
           guild_id as guildId,
@@ -118,7 +129,7 @@ class GuildConfigRepository {
    */
   getAll(): GuildConfig[] {
     try {
-      const db = getDatabase();
+      const db = this.db();
       const stmt = db.prepare(`
         SELECT
           guild_id as guildId,
@@ -175,7 +186,7 @@ class GuildConfigRepository {
    */
   upsert(config: GuildConfig): void {
     try {
-      const db = getDatabase();
+      const db = this.db();
       const stmt = db.prepare(`
         INSERT INTO guild_config (
           guild_id,
@@ -233,7 +244,7 @@ class GuildConfigRepository {
    */
   delete(guildId: string): void {
     try {
-      const db = getDatabase();
+      const db = this.db();
       const stmt = db.prepare('DELETE FROM guild_config WHERE guild_id = ?');
       stmt.run(guildId);
     } catch (error) {

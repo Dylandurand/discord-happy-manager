@@ -23,7 +23,7 @@ import type {
   TextChannel,
   PermissionResolvable,
 } from 'discord.js';
-import { PermissionFlagsBits } from 'discord.js';
+import { PermissionFlagsBits, MessageFlags } from 'discord.js';
 import { client } from '@/bot/client';
 
 /**
@@ -135,7 +135,7 @@ export async function replyEphemeral(
 ): Promise<void> {
   await interaction.reply({
     content: message,
-    ephemeral: true,
+    flags: MessageFlags.Ephemeral,
   });
 }
 
@@ -185,7 +185,9 @@ export async function deferReply(
   interaction: ChatInputCommandInteraction,
   ephemeral: boolean = true
 ): Promise<void> {
-  await interaction.deferReply({ ephemeral });
+  await interaction.deferReply({
+    flags: ephemeral ? MessageFlags.Ephemeral : undefined
+  });
 }
 
 /**
