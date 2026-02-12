@@ -23,6 +23,8 @@ import type { Interaction } from 'discord.js';
 import { client } from './client';
 import { executeHappyNow } from '@/commands/happyNow';
 import { executeHappySettings } from '@/commands/happySettings';
+import { executeHappyTest } from '@/commands/happyTest';
+import { executeHappyKudos } from '@/commands/happyKudos';
 
 /**
  * Sets up interaction event handlers on the Discord client.
@@ -94,19 +96,11 @@ async function handleChatInputCommand(
           break;
 
         case 'test':
-          // TODO: Implement in Phase 6
-          await interaction.reply({
-            content: '🚧 /happy test will be implemented in Phase 6',
-            ephemeral: true,
-          });
+          await executeHappyTest(interaction);
           break;
 
         case 'kudos':
-          // TODO: Implement in Phase 6
-          await interaction.reply({
-            content: '🚧 /happy kudos will be implemented in Phase 6',
-            ephemeral: true,
-          });
+          await executeHappyKudos(interaction);
           break;
 
         default:
