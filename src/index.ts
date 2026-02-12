@@ -14,7 +14,8 @@
 
 import { env } from './config/env';
 import { APP } from './config/constants';
-import { getDatabase, guildConfigRepo, sentRepo, cooldownRepo } from './db';
+import { getDatabase, guildConfigRepo, sentRepo, cooldownRepo, closeDatabase } from './db';
+import { initializeClient, setupInteractionHandlers, shutdownClient } from './bot';
 
 /**
  * Main application entry point.
@@ -31,7 +32,7 @@ async function main(): Promise<void> {
 
   // Phase 2: Initialize database
   console.log('🔧 Initializing database...');
-  const db = getDatabase();
+  getDatabase();
   console.log('');
 
   // Test repositories
@@ -89,16 +90,73 @@ async function main(): Promise<void> {
   console.log('✅ Phase 1: Setup & Infrastructure - Complete!');
   console.log('✅ Phase 2: Database & Repositories - Complete!');
   console.log('');
-  console.log('Next steps:');
-  console.log('  - Phase 3: Bot Core & Commands');
-  console.log('  - Phase 4: Content System');
-  console.log('  - Phase 5: Scheduler');
-  console.log('');
-  console.log('⏸️  Waiting for implementation...');
 
-  // TODO: Phase 3 - Initialize Discord client
+  // Phase 3: Initialize Discord client
+  if (env.DISCORD_TOKEN !== 'test_token_placeholder') {
+    console.log('🔧 Initializing Discord bot...');
+    try {
+      await initializeClient();
+      setupInteractionHandlers();
+      console.log('');
+      console.log('✅ Phase 3: Bot Core & Commands - Complete!');
+      console.log('');
+      console.log('🎉 Bot is ready! Listening for commands...');
+      console.log('');
+      console.log('Next steps:');
+      console.log('  - Phase 4: Content System');
+      console.log('  - Phase 5: Scheduler');
+      console.log('');
+    } catch (error) {
+      console.error('❌ Failed to initialize Discord bot:', error);
+      throw error;
+    }
+  } else {
+    console.log('⚠️  Discord token is placeholder - skipping bot initialization');
+    console.log('   Set a real token in .env to connect to Discord');
+    console.log('');
+    console.log('✅ Phase 3: Bot Core & Commands - Implementation Complete!');
+    console.log('');
+    console.log('To test the bot:');
+    console.log('  1. Create a Discord application at https://discord.com/developers');
+    console.log('  2. Copy the bot token to .env (DISCORD_TOKEN)');
+    console.log('  3. Copy the application ID to .env (DISCORD_CLIENT_ID)');
+    console.log('  4. Restart the bot');
+    console.log('');
+    console.log('Next steps:');
+    console.log('  - Phase 4: Content System');
+    console.log('  - Phase 5: Scheduler');
+    console.log('');
+    console.log('⏸️  Exiting...');
+    await cleanup();
+  }
+
   // TODO: Phase 5 - Start scheduler
 }
+
+/**
+ * Cleanup function for graceful shutdown.
+ */
+async function cleanup(): Promise<void> {
+  console.log('🧹 Cleaning up...');
+  await shutdownClient();
+  closeDatabase();
+  console.log('✅ Cleanup complete');
+}
+
+// Graceful shutdown handlers
+process.on('SIGTERM', async () => {
+  console.log('');
+  console.log('📡 SIGTERM received, shutting down gracefully...');
+  await cleanup();
+  process.exit(0);
+});
+
+process.on('SIGINT', async () => {
+  console.log('');
+  console.log('📡 SIGINT received, shutting down gracefully...');
+  await cleanup();
+  process.exit(0);
+});
 
 // Start the bot
 main().catch((error: unknown) => {

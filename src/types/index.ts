@@ -10,6 +10,9 @@
 
 import type { Category } from '@/config/constants';
 
+// Re-export Category for convenience
+export type { Category };
+
 /**
  * Content item from a provider (local or API).
  *
