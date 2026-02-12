@@ -7,7 +7,8 @@
  * @remarks
  * - Cooldown: 60 seconds per guild
  * - Optional category parameter
- * - Posts to configured channel or interaction channel
+ * - Posts to configured channel or falls back to interaction channel
+ * - Records sent message for anti-repetition tracking
  *
  * @example
  * User: /happy now
@@ -17,11 +18,12 @@
  * Bot: Posts motivation message
  */
 
-import type { ChatInputCommandInteraction } from 'discord.js';
+import type { ChatInputCommandInteraction, TextChannel } from 'discord.js';
 import type { Category } from '@/types';
-import { cooldownRepo } from '@/db';
+import { cooldownRepo, guildConfigRepo } from '@/db';
 import { COOLDOWNS } from '@/config/constants';
-import { replyEphemeral, formatDuration } from '@/utils/commandHelpers';
+import { replyEphemeral, formatDuration, getGuildChannel } from '@/utils/commandHelpers';
+import { getFormattedContent, recordSentContent } from '@/content';
 
 /**
  * Executes the /happy now command.
@@ -34,9 +36,10 @@ import { replyEphemeral, formatDuration } from '@/utils/commandHelpers';
  * Command flow:
  * 1. Check cooldown (60s per guild)
  * 2. Get optional category parameter
- * 3. Fetch content from provider (TODO: Phase 4)
+ * 3. Fetch and format content from provider (API → Local fallback)
  * 4. Post to configured channel or interaction channel
- * 5. Set cooldown
+ * 5. Record sent content for anti-repetition
+ * 6. Set cooldown
  *
  * @example
  * ```typescript
@@ -64,7 +67,7 @@ export async function executeHappyNow(
     const remainingSec = Math.ceil(remainingMs / 1000);
     await replyEphemeral(
       interaction,
-      `⏰ Please wait ${formatDuration(remainingSec)} before using this command again`
+      `⏰ Attendez encore ${formatDuration(remainingSec)} avant de relancer cette commande`
     );
     return;
   }
@@ -72,32 +75,54 @@ export async function executeHappyNow(
   // Get category parameter (optional)
   const category = interaction.options.getString('category') as Category | null;
 
-  try {
-    // TODO: Phase 4 - Get content from provider
-    // For now, send placeholder
-    const placeholderMessage = category
-      ? `✨ [${category}] Message will be implemented in Phase 4 (Content System)`
-      : '✨ Random message will be implemented in Phase 4 (Content System)';
+  // Defer reply since content fetching (API call) may take > 3s
+  await interaction.deferReply({ ephemeral: true });
 
-    // Send message to interaction channel for now
-    // TODO: Use configured channel from guild_config
-    await interaction.reply({
-      content: `✅ Posted!\n\n${placeholderMessage}`,
-      ephemeral: false,
+  try {
+    // Fetch formatted content (API → local fallback)
+    const result = await getFormattedContent({
+      guildId,
+      category: category ?? undefined,
     });
 
-    // Set cooldown
+    // Determine target channel: configured channel > interaction channel
+    const config = guildConfigRepo.get(guildId);
+    let targetChannel: TextChannel | null = null;
+
+    if (config?.channelId) {
+      targetChannel = getGuildChannel(guildId, config.channelId);
+    }
+
+    if (targetChannel) {
+      // Post to configured channel
+      await targetChannel.send(result.message);
+
+      // Record in the correct channelId
+      recordSentContent(guildId, targetChannel.id, result.item);
+
+      await interaction.editReply('✅ Message envoyé dans le canal configuré !');
+    } else {
+      // Fallback: post in interaction channel as non-ephemeral followup
+      await interaction.editReply({ content: '✅ Voici votre message :' });
+      await interaction.followUp({
+        content: result.message,
+        ephemeral: false,
+      });
+
+      // Record with interaction channel
+      recordSentContent(guildId, interaction.channelId ?? '', result.item);
+    }
+
+    // Set cooldown after successful delivery
     cooldownRepo.setWithDuration(cooldownKey, COOLDOWNS.NOW_COMMAND);
 
     console.log(
-      `📤 /happy now executed by ${interaction.user.tag} in ${interaction.guild.name}` +
-        (category ? ` (category: ${category})` : '')
+      `📤 /happy now → ${interaction.user.tag} in "${interaction.guild.name}"` +
+        ` [${result.item.category}/${result.item.provider}]` +
+        (category ? ` (requested: ${category})` : '')
     );
   } catch (error) {
     console.error('❌ Error executing /happy now:', error);
-    await replyEphemeral(
-      interaction,
-      '❌ Failed to send message. Please try again later.'
-    );
+    await interaction.editReply('❌ Impossible d\'envoyer le message. Réessayez plus tard.');
   }
 }
