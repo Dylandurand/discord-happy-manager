@@ -31,6 +31,7 @@
  * ```
  */
 
+import type Database from 'better-sqlite3';
 import { getDatabase, DatabaseError } from './db';
 
 /**
@@ -39,7 +40,16 @@ import { getDatabase, DatabaseError } from './db';
  * @remarks
  * Singleton instance exported for application-wide use.
  */
-class CooldownRepository {
+export class CooldownRepository {
+  private readonly _db: Database.Database | undefined;
+
+  constructor(db?: Database.Database) {
+    this._db = db;
+  }
+
+  private db(): Database.Database {
+    return this._db ?? getDatabase();
+  }
   /**
    * Sets a cooldown with expiration time.
    *
@@ -56,7 +66,7 @@ class CooldownRepository {
    */
   set(key: string, expiresAt: Date): void {
     try {
-      const db = getDatabase();
+      const db = this.db();
       const stmt = db.prepare(`
         INSERT INTO cooldowns (key, expires_at)
         VALUES (?, ?)
@@ -94,7 +104,7 @@ class CooldownRepository {
    */
   get(key: string): Date | null {
     try {
-      const db = getDatabase();
+      const db = this.db();
       const stmt = db.prepare(`
         SELECT expires_at
         FROM cooldowns
@@ -182,7 +192,7 @@ class CooldownRepository {
    */
   delete(key: string): void {
     try {
-      const db = getDatabase();
+      const db = this.db();
       const stmt = db.prepare('DELETE FROM cooldowns WHERE key = ?');
       stmt.run(key);
     } catch (error) {
@@ -213,7 +223,7 @@ class CooldownRepository {
    */
   cleanup(): number {
     try {
-      const db = getDatabase();
+      const db = this.db();
       const stmt = db.prepare(`
         DELETE FROM cooldowns
         WHERE expires_at <= datetime('now')
@@ -249,7 +259,7 @@ class CooldownRepository {
    */
   deleteForGuild(guildId: string): number {
     try {
-      const db = getDatabase();
+      const db = this.db();
       const stmt = db.prepare(`
         DELETE FROM cooldowns
         WHERE key LIKE 'guild:' || ? || ':%'
@@ -303,7 +313,7 @@ class CooldownRepository {
    */
   getAll(limit: number = 100): Array<{ key: string; expiresAt: Date }> {
     try {
-      const db = getDatabase();
+      const db = this.db();
       const stmt = db.prepare(`
         SELECT key, expires_at as expiresAt
         FROM cooldowns

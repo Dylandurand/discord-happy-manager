@@ -36,6 +36,7 @@
  * ```
  */
 
+import type Database from 'better-sqlite3';
 import type { SentMessage, Category } from '@/types';
 import { getDatabase, DatabaseError } from './db';
 
@@ -43,9 +44,18 @@ import { getDatabase, DatabaseError } from './db';
  * Sent messages repository.
  *
  * @remarks
- * Singleton instance exported for application-wide use.
+ * Accepts an optional Database instance for dependency injection (useful in tests).
  */
-class SentMessageRepository {
+export class SentMessageRepository {
+  private readonly _db: Database.Database | undefined;
+
+  constructor(db?: Database.Database) {
+    this._db = db;
+  }
+
+  private db(): Database.Database {
+    return this._db ?? getDatabase();
+  }
   /**
    * Records a sent message in the database.
    *
@@ -67,7 +77,7 @@ class SentMessageRepository {
    */
   record(message: SentMessage): void {
     try {
-      const db = getDatabase();
+      const db = this.db();
       const stmt = db.prepare(`
         INSERT INTO sent_messages (
           guild_id,
@@ -120,7 +130,7 @@ class SentMessageRepository {
    */
   wasSentRecently(guildId: string, contentId: string, days: number = 30): boolean {
     try {
-      const db = getDatabase();
+      const db = this.db();
       const stmt = db.prepare(`
         SELECT 1
         FROM sent_messages
@@ -162,7 +172,7 @@ class SentMessageRepository {
    */
   getRecent(guildId: string, limit: number = 100): SentMessage[] {
     try {
-      const db = getDatabase();
+      const db = this.db();
       const stmt = db.prepare(`
         SELECT
           id,
@@ -208,7 +218,7 @@ class SentMessageRepository {
    */
   getByCategory(guildId: string, category: Category, limit: number = 50): SentMessage[] {
     try {
-      const db = getDatabase();
+      const db = this.db();
       const stmt = db.prepare(`
         SELECT
           id,
@@ -258,7 +268,7 @@ class SentMessageRepository {
    */
   cleanup(days: number = 90): number {
     try {
-      const db = getDatabase();
+      const db = this.db();
       const stmt = db.prepare(`
         DELETE FROM sent_messages
         WHERE sent_at < datetime('now', '-' || ? || ' days')
@@ -299,7 +309,7 @@ class SentMessageRepository {
     days: number = 30
   ): Record<'local' | 'api' | 'rss', number> {
     try {
-      const db = getDatabase();
+      const db = this.db();
       const stmt = db.prepare(`
         SELECT
           provider,
