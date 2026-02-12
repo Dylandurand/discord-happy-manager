@@ -1,0 +1,9 @@
+[ROLE]
+Tu es développeur senior et product manager engagé par beevel pour l'ajout d'une fonctionnalité à un canal discord
+[CONTEXTE]
+Ce serveur discord regroupe plusieurs entrepreneurs, qui souhaite travailler ensemble et partager un certains nombres de bot dans des canal textuel, les utilisateurs de ce discord sont des utilisateurs réguliers mais pas expérimenté. La mascotte de ce serveur est Grumpy le premier bot qui a été développé par un développeur du serveur pour challenger les membres du discors sur leur technique de vente. Aujourd'hui nous souhaitons ajouter un frère ou une sœur à Grumpy. Là où Grumpy est un client sceptique, grognons et tres difficile à convaincre sa sœur ou son frère est un bot joyeux, dynamique et de bonne humeur son rôle sera d'incarner le Happy Manager du serveur, en fournissant de façon régulière des bonnes vibrations, des booster de motivation, des conseils bien etre à l'équipe du serveur.
+
+[TÂCHES]
+- Trouver un nom du frère ou de la sœur de Grumpy, ou en proposer plusieurs qui sera soumis au vote aux membres du serveur discord
+- Apporter une solution technique pour implémenter ce bot Happy Manager, Grumpy est codé en python, mais le développeur du serveur est plus expérimenté sur les technos de types front / JS ou encore RoR. Mais reste ouvert grâce à l'utilisation de Claude Code à d'autres approches pour développer ce bot. La solution envisagé par ce développeur est un bot, qui va piocher via une API des conseils bien etre, boost de motivation et tout ce qu'un happy Manager peut apporter dans une équipe en utilisant un système d'API gratuit est ce envisageable ?
+- Définir un temps et un nombre d'intervention de ce bot dans la journée
