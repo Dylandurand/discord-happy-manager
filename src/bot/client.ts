@@ -24,7 +24,6 @@
 
 import { Client, GatewayIntentBits, Events, ActivityType } from 'discord.js';
 import { env } from '@/config/env';
-import { APP } from '@/config/constants';
 
 /**
  * Discord client instance.
