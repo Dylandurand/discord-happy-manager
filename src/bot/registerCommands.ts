@@ -74,6 +74,19 @@ const commands = [
             .setMinValue(1)
             .setMaxValue(5)
         )
+        .addStringOption((option) =>
+          option
+            .setName('category')
+            .setDescription('Filter by category (optional)')
+            .setRequired(false)
+            .addChoices(
+              { name: 'Motivation', value: 'motivation' },
+              { name: 'Wellbeing', value: 'wellbeing' },
+              { name: 'Focus', value: 'focus' },
+              { name: 'Team', value: 'team' },
+              { name: 'Fun', value: 'fun' }
+            )
+        )
     )
     // /happy kudos @user [message?]
     .addSubcommand((subcommand) =>
