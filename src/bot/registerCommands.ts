@@ -140,11 +140,11 @@ const commands = [
             )
         )
     )
-    // /happy kudos @user [message?]
+    // /happy kudos @user category reason impact
     .addSubcommand((subcommand) =>
       subcommand
         .setName('kudos')
-        .setDescription('Send kudos to a team member')
+        .setDescription('Send structured kudos to a team member')
         .addUserOption((option) =>
           option
             .setName('user')
@@ -153,10 +153,31 @@ const commands = [
         )
         .addStringOption((option) =>
           option
-            .setName('message')
-            .setDescription('Optional kudos message')
-            .setRequired(false)
-            .setMaxLength(120)
+            .setName('category')
+            .setDescription('Kudos category')
+            .setRequired(true)
+            .addChoices(
+              { name: 'Vente', value: 'vente' },
+              { name: 'Discipline / Focus', value: 'discipline' },
+              { name: 'Entraide / Contribution', value: 'entraide' },
+              { name: 'Leadership', value: 'leadership' },
+              { name: 'Créativité / Innovation', value: 'creativite' },
+              { name: 'Persévérance / Résilience', value: 'perseverance' }
+            )
+        )
+        .addStringOption((option) =>
+          option
+            .setName('reason')
+            .setDescription('What did they do? (la raison)')
+            .setRequired(true)
+            .setMaxLength(200)
+        )
+        .addStringOption((option) =>
+          option
+            .setName('impact')
+            .setDescription('What was the impact? (l\'impact observé)')
+            .setRequired(true)
+            .setMaxLength(200)
         )
     ),
 ].map((command) => command.toJSON());

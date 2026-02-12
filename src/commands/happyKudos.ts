@@ -1,37 +1,26 @@
 /**
  * /happy kudos Command
  *
- * Allows team members to publicly recognize a colleague.
- * Posts a formatted kudos message in the configured channel.
+ * Allows team members to publicly recognize a colleague with structured kudos.
+ * Uses templates from roadmap/kudos.md with categories and variables.
  *
  * @remarks
  * - Available to all members (not admin-only)
  * - Cooldown: 5 minutes per user (prevents spam)
- * - Required: @user mention
- * - Optional: custom message (max 120 chars)
+ * - Required: @user mention, category, reason, impact
  * - Posts in configured channel or interaction channel as fallback
  *
  * @example
- * User: /happy kudos user:@Alice message:Super travail sur la démo !
- * Bot: 🎉 Kudos à @Alice — Super travail sur la démo !
- *      Tu fais avancer la ruche. Merci.
+ * User: /happy kudos user:@Alice category:vente reason:a clarifié son positionnement impact:client convaincu
+ * Bot: 🎯 @Alice a renforcé son argumentaire.
+ *      Preuve : a clarifié son positionnement. Impact direct : client convaincu.
  */
 
 import type { ChatInputCommandInteraction, GuildMember, TextChannel } from 'discord.js';
 import { COOLDOWNS } from '@/config/constants';
 import { cooldownRepo, guildConfigRepo } from '@/db';
 import { replyEphemeral, formatDuration, getGuildChannel } from '@/utils/commandHelpers';
-
-/**
- * Kudos message format template.
- *
- * @remarks
- * Stable format to ensure brand consistency across servers.
- */
-const KUDOS_TEMPLATE = (recipientMention: string, message?: string): string => {
-  const customMessage = message ? ` — ${message}` : '';
-  return `🎉 **Kudos à ${recipientMention}**${customMessage}\n*Tu fais avancer la ruche. Merci.*`;
-};
+import { getKudosProvider, type KudosCategory } from '@/content/kudosProvider';
 
 /**
  * Executes the /happy kudos command.
@@ -81,7 +70,9 @@ export async function executeHappyKudos(
 
   // Get parameters
   const targetUser = interaction.options.getUser('user', true);
-  const customMessage = interaction.options.getString('message');
+  const category = interaction.options.getString('category', true) as KudosCategory;
+  const reason = interaction.options.getString('reason', true);
+  const impact = interaction.options.getString('impact', true);
 
   // Validate: cannot kudos yourself
   if (targetUser.id === senderId) {
@@ -92,15 +83,6 @@ export async function executeHappyKudos(
   // Validate: cannot kudos a bot
   if (targetUser.bot) {
     await replyEphemeral(interaction, '🤖 Les bots n\'ont pas besoin de kudos (pour l\'instant)');
-    return;
-  }
-
-  // Validate custom message length
-  if (customMessage && customMessage.length > 120) {
-    await replyEphemeral(
-      interaction,
-      `❌ Le message est trop long (${customMessage.length}/120 caractères)`
-    );
     return;
   }
 
@@ -116,8 +98,14 @@ export async function executeHappyKudos(
       recipientMention = targetUser.toString();
     }
 
-    // Format kudos message
-    const kudosMessage = KUDOS_TEMPLATE(recipientMention, customMessage ?? undefined);
+    // Format kudos message using templates
+    const kudosProvider = getKudosProvider();
+    const kudosMessage = kudosProvider.formatKudos(
+      category,
+      recipientMention,
+      reason,
+      impact
+    );
 
     // Determine target channel: configured > interaction channel
     const config = guildConfigRepo.get(guildId);
