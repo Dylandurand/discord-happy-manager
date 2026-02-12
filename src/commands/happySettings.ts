@@ -15,7 +15,7 @@
  */
 
 import type { ChatInputCommandInteraction } from 'discord.js';
-import { EmbedBuilder } from 'discord.js';
+import { EmbedBuilder, MessageFlags } from 'discord.js';
 import { guildConfigRepo } from '@/db';
 import { DISCORD, SCHEDULER } from '@/config/constants';
 import { isAdmin, replyEphemeral } from '@/utils/commandHelpers';
@@ -199,14 +199,16 @@ export async function executeHappySettings(
 
       // Re-fetch updated config
       config = guildConfigRepo.get(guildId) ?? config;
-
-      await replyEphemeral(interaction, '✅ Configuration updated successfully!');
     }
 
     // Build settings embed
     const embed = new EmbedBuilder()
       .setTitle('⚙️ Happy Manager Settings')
-      .setDescription(`Current configuration for **${interaction.guild.name}**`)
+      .setDescription(
+        hasUpdates
+          ? `✅ Configuration updated successfully!\n\nCurrent configuration for **${interaction.guild.name}**`
+          : `Current configuration for **${interaction.guild.name}**`
+      )
       .setColor(DISCORD.COLOR_INFO)
       .addFields(
         {
@@ -247,7 +249,7 @@ export async function executeHappySettings(
 
     await interaction.reply({
       embeds: [embed],
-      ephemeral: true,
+      flags: MessageFlags.Ephemeral,
     });
 
     console.log(
@@ -255,10 +257,14 @@ export async function executeHappySettings(
     );
   } catch (error) {
     console.error('❌ Error executing /happy settings:', error);
-    await replyEphemeral(
-      interaction,
-      '❌ Failed to load settings. Please try again later.'
-    );
+
+    // Only reply if we haven't already responded
+    if (!interaction.replied && !interaction.deferred) {
+      await replyEphemeral(
+        interaction,
+        '❌ Failed to load settings. Please try again later.'
+      );
+    }
   }
 }
 
