@@ -106,6 +106,12 @@ const commands = [
             .setDescription('Third message time (HH:MM format, e.g., 12:45)')
             .setRequired(false)
         )
+        .addBooleanOption((option) =>
+          option
+            .setName('contextual_mode')
+            .setDescription('Enable contextual responses to keywords (stress, fatigue, etc.)')
+            .setRequired(false)
+        )
     )
     // /happy test [count?]
     .addSubcommand((subcommand) =>

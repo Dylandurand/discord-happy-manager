@@ -98,8 +98,9 @@ export async function executeHappySettings(
     const slot1 = interaction.options.getString('slot1');
     const slot2 = interaction.options.getString('slot2');
     const slot3 = interaction.options.getString('slot3');
+    const contextualMode = interaction.options.getBoolean('contextual_mode');
 
-    const hasUpdates = channel || timezone || cadence || activeDaysStr || slot1 || slot2 || slot3;
+    const hasUpdates = channel || timezone || cadence || activeDaysStr || slot1 || slot2 || slot3 || contextualMode !== null;
 
     if (hasUpdates) {
       // Update mode - validate and apply changes
@@ -130,6 +131,10 @@ export async function executeHappySettings(
 
       if (cadence) {
         updates.cadence = cadence as 2 | 3;
+      }
+
+      if (contextualMode !== null) {
+        updates.contextualEnabled = contextualMode;
       }
 
       if (activeDaysStr) {
