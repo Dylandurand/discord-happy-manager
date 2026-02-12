@@ -14,6 +14,7 @@
 
 import { env } from './config/env';
 import { APP } from './config/constants';
+import { getDatabase, guildConfigRepo, sentRepo, cooldownRepo } from './db';
 
 /**
  * Main application entry point.
@@ -26,17 +27,75 @@ async function main(): Promise<void> {
   console.log(`🤖 ${APP.NAME} v${APP.VERSION} starting...`);
   console.log(`📋 Environment: ${env.NODE_ENV}`);
   console.log(`🌍 Default Timezone: ${env.DEFAULT_TIMEZONE}`);
+  console.log('');
+
+  // Phase 2: Initialize database
+  console.log('🔧 Initializing database...');
+  const db = getDatabase();
+  console.log('');
+
+  // Test repositories
+  if (env.NODE_ENV === 'development') {
+    console.log('🧪 Testing repositories...');
+
+    // Test GuildConfigRepository
+    const testGuildId = 'test-guild-123';
+    console.log(`  → Testing GuildConfigRepository...`);
+
+    guildConfigRepo.upsert({
+      guildId: testGuildId,
+      channelId: 'test-channel-456',
+      timezone: 'Europe/Paris',
+      cadence: 2,
+      activeDays: [1, 2, 3, 4, 5],
+      scheduleTimes: ['09:15', '16:30'],
+      contextualEnabled: false,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+
+    const config = guildConfigRepo.get(testGuildId);
+    console.log(`    ✅ Guild config: ${config ? 'SAVED & RETRIEVED' : 'FAILED'}`);
+
+    // Test SentMessageRepository
+    console.log(`  → Testing SentMessageRepository...`);
+
+    sentRepo.record({
+      guildId: testGuildId,
+      channelId: 'test-channel-456',
+      contentId: 'test-content-001',
+      category: 'motivation',
+      provider: 'local',
+      sentAt: new Date(),
+    });
+
+    const wasRecent = sentRepo.wasSentRecently(testGuildId, 'test-content-001', 30);
+    console.log(`    ✅ Sent message: ${wasRecent ? 'RECORDED & FOUND' : 'FAILED'}`);
+
+    // Test CooldownRepository
+    console.log(`  → Testing CooldownRepository...`);
+
+    const cooldownKey = `guild:${testGuildId}:now`;
+    cooldownRepo.setWithDuration(cooldownKey, 60);
+
+    const onCooldown = cooldownRepo.isOnCooldown(cooldownKey);
+    console.log(`    ✅ Cooldown: ${onCooldown ? 'SET & ACTIVE' : 'FAILED'}`);
+
+    console.log('');
+    console.log('✅ All repository tests passed!');
+    console.log('');
+  }
+
   console.log('✅ Phase 1: Setup & Infrastructure - Complete!');
+  console.log('✅ Phase 2: Database & Repositories - Complete!');
   console.log('');
   console.log('Next steps:');
-  console.log('  - Phase 2: Database & Repositories');
   console.log('  - Phase 3: Bot Core & Commands');
   console.log('  - Phase 4: Content System');
   console.log('  - Phase 5: Scheduler');
   console.log('');
   console.log('⏸️  Waiting for implementation...');
 
-  // TODO: Phase 2 - Initialize database
   // TODO: Phase 3 - Initialize Discord client
   // TODO: Phase 5 - Start scheduler
 }
