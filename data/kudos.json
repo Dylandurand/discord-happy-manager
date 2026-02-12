@@ -1,0 +1,161 @@
+{
+  "version": "1.0.0",
+  "description": "Structured kudos templates with categories and variables",
+  "variables": {
+    "membre": "Member mention or name",
+    "raison": "Reason for kudos",
+    "impact": "Impact observed"
+  },
+  "categories": {
+    "vente": {
+      "label": "Vente",
+      "templates": [
+        {
+          "emoji": "🎯",
+          "text": "{membre} a renforcé son argumentaire sur {projet}.\nPreuve : {raison}. Impact direct : {impact}."
+        },
+        {
+          "emoji": "📈",
+          "text": "{membre} a clarifié son positionnement.\nAction : {raison}. Résultat : {impact}."
+        },
+        {
+          "emoji": "🔥",
+          "text": "Belle progression commerciale de {membre}.\n{raison}. Effet observable : {impact}."
+        },
+        {
+          "emoji": "💬",
+          "text": "{membre} a su répondre à une objection clé.\n{raison}. Impact stratégique : {impact}."
+        },
+        {
+          "emoji": "🚀",
+          "text": "{membre} élève son niveau de structuration.\n{raison}. Conséquence : {impact}."
+        }
+      ]
+    },
+    "discipline": {
+      "label": "Discipline / Focus",
+      "templates": [
+        {
+          "emoji": "🧭",
+          "text": "{membre} a respecté son engagement.\n{raison}. Impact : {impact}."
+        },
+        {
+          "emoji": "⏳",
+          "text": "Régularité remarquable de {membre}.\n{raison}. Cela produit : {impact}."
+        },
+        {
+          "emoji": "🏗",
+          "text": "{membre} construit sur la durée.\n{raison}. Effet cumulatif : {impact}."
+        },
+        {
+          "emoji": "📌",
+          "text": "{membre} a tenu son cap malgré les contraintes.\n{raison}. Résultat : {impact}."
+        },
+        {
+          "emoji": "⚙️",
+          "text": "Travail structuré de {membre}.\n{raison}. Avancée concrète : {impact}."
+        }
+      ]
+    },
+    "entraide": {
+      "label": "Entraide / Contribution",
+      "templates": [
+        {
+          "emoji": "🤝",
+          "text": "{membre} a soutenu la communauté.\n{raison}. Bénéfice collectif : {impact}."
+        },
+        {
+          "emoji": "🌱",
+          "text": "Contribution utile de {membre}.\n{raison}. Effet : {impact}."
+        },
+        {
+          "emoji": "🔎",
+          "text": "{membre} a apporté de la clarté à un autre membre.\n{raison}. Impact direct : {impact}."
+        },
+        {
+          "emoji": "🧩",
+          "text": "Intervention pertinente de {membre}.\n{raison}. Résultat : {impact}."
+        },
+        {
+          "emoji": "📚",
+          "text": "Partage structurant de {membre}.\n{raison}. Conséquence : {impact}."
+        }
+      ]
+    },
+    "leadership": {
+      "label": "Leadership",
+      "templates": [
+        {
+          "emoji": "🏛",
+          "text": "{membre} a pris une initiative constructive.\n{raison}. Impact : {impact}."
+        },
+        {
+          "emoji": "🎖",
+          "text": "{membre} montre l'exemple.\n{raison}. Influence : {impact}."
+        },
+        {
+          "emoji": "📊",
+          "text": "Décision assumée par {membre}.\n{raison}. Effet : {impact}."
+        },
+        {
+          "emoji": "🔦",
+          "text": "{membre} a apporté une vision claire.\n{raison}. Résultat : {impact}."
+        },
+        {
+          "emoji": "🧠",
+          "text": "Positionnement stratégique de {membre}.\n{raison}. Avantage généré : {impact}."
+        }
+      ]
+    },
+    "creativite": {
+      "label": "Créativité / Innovation",
+      "templates": [
+        {
+          "emoji": "🎨",
+          "text": "{membre} a proposé une approche originale.\n{raison}. Impact créatif : {impact}."
+        },
+        {
+          "emoji": "✨",
+          "text": "Initiative innovante de {membre}.\n{raison}. Effet : {impact}."
+        },
+        {
+          "emoji": "🧪",
+          "text": "Test pertinent réalisé par {membre}.\n{raison}. Apprentissage : {impact}."
+        },
+        {
+          "emoji": "📐",
+          "text": "Structuration créative de {membre}.\n{raison}. Résultat : {impact}."
+        },
+        {
+          "emoji": "🌟",
+          "text": "{membre} a amélioré l'expérience globale.\n{raison}. Impact : {impact}."
+        }
+      ]
+    },
+    "perseverance": {
+      "label": "Persévérance / Résilience",
+      "templates": [
+        {
+          "emoji": "💪",
+          "text": "{membre} n'a pas lâché malgré la difficulté.\n{raison}. Avancée obtenue : {impact}."
+        },
+        {
+          "emoji": "🔁",
+          "text": "Ajustement intelligent de {membre}.\n{raison}. Progression : {impact}."
+        },
+        {
+          "emoji": "🛠",
+          "text": "{membre} a transformé un obstacle en action.\n{raison}. Résultat : {impact}."
+        },
+        {
+          "emoji": "🧱",
+          "text": "Travail patient de {membre}.\n{raison}. Effet durable : {impact}."
+        },
+        {
+          "emoji": "🌤",
+          "text": "{membre} continue d'avancer avec constance.\n{raison}. Impact visible : {impact}."
+        }
+      ]
+    }
+  }
+}

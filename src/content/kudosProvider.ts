@@ -1,11 +1,11 @@
 /**
  * Kudos Provider
  *
- * Parses and provides structured kudos templates from roadmap/kudos.md.
+ * Loads and provides structured kudos templates from data/kudos.json.
  * Each template contains variables: {membre}, {raison}, {impact}.
  *
  * @remarks
- * The kudos file contains 6 categories with multiple template variants.
+ * The kudos JSON file contains 6 categories with multiple template variants.
  * This provider selects a random template from the chosen category
  * and replaces variables with user-provided values.
  *
@@ -63,7 +63,28 @@ interface KudosTemplate {
   emoji: string;
 
   /** Template string with {membre}, {raison}, {impact} variables */
-  template: string;
+  text: string;
+}
+
+/**
+ * Category configuration from JSON.
+ */
+interface CategoryConfig {
+  /** Display label */
+  label: string;
+
+  /** Array of templates */
+  templates: KudosTemplate[];
+}
+
+/**
+ * Structure of the kudos.json file.
+ */
+interface KudosJsonFile {
+  version: string;
+  description: string;
+  variables: Record<string, string>;
+  categories: Record<KudosCategory, CategoryConfig>;
 }
 
 /**
@@ -86,12 +107,12 @@ export class KudosProvider {
   /**
    * Creates a KudosProvider instance and loads templates.
    *
-   * @param filePath - Path to kudos.md (defaults to roadmap/kudos.md)
+   * @param filePath - Path to kudos.json (defaults to data/kudos.json)
    *
    * @throws {KudosLoadError} If the file cannot be read or parsed
    */
   constructor(filePath?: string) {
-    const resolvedPath = filePath ?? resolve(process.cwd(), 'roadmap', 'kudos.md');
+    const resolvedPath = filePath ?? resolve(process.cwd(), 'data', 'kudos.json');
     this.templates = this.loadTemplates(resolvedPath);
   }
 
@@ -133,12 +154,12 @@ export class KudosProvider {
     const template = this.pickRandom(categoryTemplates);
 
     // Replace variables
-    let message = template.template
+    let message = template.text
       .replace(/{membre}/g, membre)
       .replace(/{raison}/g, raison)
       .replace(/{impact}/g, impact);
 
-    // Add emoji prefix if not already in template
+    // Add emoji prefix if not already in message
     if (!message.startsWith(template.emoji)) {
       message = `${template.emoji} ${message}`;
     }
@@ -167,9 +188,9 @@ export class KudosProvider {
   }
 
   /**
-   * Loads and parses the kudos.md file.
+   * Loads and parses the kudos.json file.
    *
-   * @param path - Absolute path to kudos.md
+   * @param path - Absolute path to kudos.json
    *
    * @returns Map of category to templates
    *
@@ -178,110 +199,21 @@ export class KudosProvider {
   private loadTemplates(path: string): Map<KudosCategory, KudosTemplate[]> {
     try {
       const content = readFileSync(path, 'utf-8');
-      return this.parseKudosFile(content);
+      const data = JSON.parse(content) as KudosJsonFile;
+
+      const result = new Map<KudosCategory, KudosTemplate[]>();
+
+      // Load all categories from JSON
+      for (const [category, config] of Object.entries(data.categories)) {
+        result.set(category as KudosCategory, config.templates);
+      }
+
+      return result;
     } catch (error) {
       throw new KudosLoadError(
         `Failed to load kudos file at ${path}: ${error instanceof Error ? error.message : String(error)}`
       );
     }
-  }
-
-  /**
-   * Parses the kudos.md file content into structured templates.
-   *
-   * @param content - Raw file content
-   *
-   * @returns Map of category to templates
-   */
-  private parseKudosFile(content: string): Map<KudosCategory, KudosTemplate[]> {
-    const result = new Map<KudosCategory, KudosTemplate[]>();
-    const lines = content.split('\n');
-
-    let currentCategory: KudosCategory | null = null;
-
-    for (const line of lines) {
-      const trimmed = line.trim();
-
-      // Skip empty lines
-      if (!trimmed) continue;
-
-      // Check for category header: ## Catégorie : {name}
-      if (trimmed.startsWith('## Catégorie :')) {
-        const categoryName = trimmed.replace('## Catégorie :', '').trim().toLowerCase();
-        currentCategory = this.mapCategoryName(categoryName);
-
-        if (currentCategory && !result.has(currentCategory)) {
-          result.set(currentCategory, []);
-        }
-        continue;
-      }
-
-      // Parse template line (starts with emoji)
-      if (currentCategory && this.startsWithEmoji(trimmed)) {
-        const template = this.parseTemplateLine(trimmed);
-        if (template) {
-          result.get(currentCategory)?.push(template);
-        }
-      }
-    }
-
-    return result;
-  }
-
-  /**
-   * Maps category display names to internal category keys.
-   *
-   * @param categoryName - Category name from file (lowercase)
-   *
-   * @returns Mapped category key or null
-   */
-  private mapCategoryName(categoryName: string): KudosCategory | null {
-    const mapping: Record<string, KudosCategory> = {
-      vente: 'vente',
-      'discipline / focus': 'discipline',
-      'entraide / contribution': 'entraide',
-      leadership: 'leadership',
-      'créativité / innovation': 'creativite',
-      'persévérance / résilience': 'perseverance',
-    };
-
-    return mapping[categoryName] ?? null;
-  }
-
-  /**
-   * Checks if a line starts with an emoji.
-   *
-   * @param line - Line to check
-   *
-   * @returns True if line starts with emoji
-   */
-  private startsWithEmoji(line: string): boolean {
-    // Simple emoji detection: Unicode emoji range
-    const emojiRegex = /^[\u{1F300}-\u{1F9FF}]/u;
-    return emojiRegex.test(line);
-  }
-
-  /**
-   * Parses a single template line.
-   *
-   * @param line - Line starting with emoji
-   *
-   * @returns Parsed template or null
-   *
-   * @example
-   * Input: "🎯 {membre} a renforcé son argumentaire sur {projet}."
-   * Output: { emoji: "🎯", template: "{membre} a renforcé son argumentaire sur {projet}." }
-   */
-  private parseTemplateLine(line: string): KudosTemplate | null {
-    // Extract emoji (first character)
-    const emoji = line.charAt(0);
-
-    // Extract template (rest of line, trimmed)
-    const template = line.slice(1).trim();
-
-    if (!template) return null;
-
-    return { emoji, template };
   }
 
   /**
