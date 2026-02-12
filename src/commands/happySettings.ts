@@ -185,6 +185,17 @@ export async function executeHappySettings(
           return;
         }
         updates.scheduleTimes = newSlots;
+      } else if (updates.cadence && updates.cadence !== config.cadence) {
+        // If cadence changed without explicit slots, auto-adjust to default times
+        // This prevents cadence/schedule times inconsistency
+        const defaultTimes = updates.cadence === 2
+          ? SCHEDULER.DEFAULT_TIMES_2
+          : SCHEDULER.DEFAULT_TIMES_3;
+        updates.scheduleTimes = [...defaultTimes];
+        console.log(
+          `⚠️  Cadence changed from ${config.cadence} to ${updates.cadence} without explicit slots. ` +
+          `Auto-adjusting schedule times to: ${defaultTimes.join(', ')}`
+        );
       }
 
       // Apply updates
