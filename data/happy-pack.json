@@ -1,0 +1,916 @@
+{
+  "version": "1.0.0",
+  "description": "Happy Manager local content pack",
+  "messages": {
+    "motivation": [
+      {
+        "id": "mot-001",
+        "text": "Chaque grand projet commence par une première ligne de code. Tu es déjà en train de construire quelque chose d'important. 🚀",
+        "tags": ["démarrage", "progression"]
+      },
+      {
+        "id": "mot-002",
+        "text": "La différence entre quelqu'un qui réussit et quelqu'un qui abandonne ? Juste une décision de plus de continuer.",
+        "tags": ["persévérance", "mindset"]
+      },
+      {
+        "id": "mot-003",
+        "text": "Ton futur toi te remercie de travailler dur aujourd'hui. Chaque effort compte.",
+        "tags": ["effort", "futur"]
+      },
+      {
+        "id": "mot-004",
+        "text": "Les obstacles ne sont pas là pour t'arrêter, mais pour te montrer ce dont tu es capable.",
+        "tags": ["défi", "résilience"]
+      },
+      {
+        "id": "mot-005",
+        "text": "Une idée sans exécution reste un rêve. Aujourd'hui, tu transformes tes rêves en réalité.",
+        "tags": ["action", "exécution"]
+      },
+      {
+        "id": "mot-006",
+        "text": "Le succès n'est pas une destination, c'est le résultat accumulé de petites victoires quotidiennes.",
+        "tags": ["succès", "habitudes"]
+      },
+      {
+        "id": "mot-007",
+        "text": "Ne compte pas les jours — fais en sorte que les jours comptent. Ta contribution d'aujourd'hui fait la différence.",
+        "tags": ["impact", "présent"]
+      },
+      {
+        "id": "mot-008",
+        "text": "Le momentum se construit une action à la fois. Lance-toi, le reste suivra.",
+        "tags": ["action", "momentum"]
+      },
+      {
+        "id": "mot-009",
+        "text": "Chaque bug résolu, chaque feature livrée, chaque client satisfait — tu construis quelque chose qui compte.",
+        "tags": ["tech", "impact"]
+      },
+      {
+        "id": "mot-010",
+        "text": "L'entrepreneuriat, c'est transformer 'c'est impossible' en 'comment faire ?'. Tu es sur la bonne voie.",
+        "tags": ["entrepreneur", "mindset"]
+      },
+      {
+        "id": "mot-011",
+        "text": "Tes efforts d'aujourd'hui sont les fondations de ton succès de demain. Continue à construire.",
+        "tags": ["fondations", "progression"]
+      },
+      {
+        "id": "mot-012",
+        "text": "Les meilleures décisions sont prises par ceux qui n'ont pas peur d'agir dans l'incertitude.",
+        "tags": ["décision", "courage"]
+      },
+      {
+        "id": "mot-013",
+        "text": "Chaque semaine de travail acharné te rapproche un peu plus de là où tu veux être. Garde le cap.",
+        "tags": ["persévérance", "cap"]
+      },
+      {
+        "id": "mot-014",
+        "text": "Les grandes choses ne viennent jamais de zones de confort. Tu es exactement là où il faut être.",
+        "tags": ["challenge", "croissance"]
+      },
+      {
+        "id": "mot-015",
+        "text": "Aujourd'hui est une nouvelle opportunité de faire mieux qu'hier. Saisis-la.",
+        "tags": ["opportunité", "amélioration"]
+      },
+      {
+        "id": "mot-016",
+        "text": "La passion + l'action = l'impact. Tu as les deux. Maintenant, crée l'impact.",
+        "tags": ["passion", "impact"]
+      },
+      {
+        "id": "mot-017",
+        "text": "Chaque 'non' reçu te rapproche du 'oui' qui changera tout. Continue à frapper aux portes.",
+        "tags": ["résilience", "ventes"]
+      },
+      {
+        "id": "mot-018",
+        "text": "Les meilleures équipes ne se contentent pas de travailler ensemble — elles construisent ensemble.",
+        "tags": ["équipe", "collaboration"]
+      },
+      {
+        "id": "mot-019",
+        "text": "Tu n'as pas besoin d'être parfait pour commencer, mais tu dois commencer pour être meilleur.",
+        "tags": ["démarrage", "amélioration"]
+      },
+      {
+        "id": "mot-020",
+        "text": "La vision sans exécution est une hallucination. Aujourd'hui, exécute avec excellence.",
+        "tags": ["vision", "exécution"]
+      },
+      {
+        "id": "mot-021",
+        "text": "Chaque défi que tu surmonte aujourd'hui devient une compétence pour demain.",
+        "tags": ["compétences", "croissance"]
+      },
+      {
+        "id": "mot-022",
+        "text": "Les entreprises qui durent sont construites par des équipes qui ne lâchent pas. Vous êtes cette équipe.",
+        "tags": ["équipe", "durabilité"]
+      },
+      {
+        "id": "mot-023",
+        "text": "Fais de chaque journée une masterclass. Apprends, teste, itère, améliore.",
+        "tags": ["apprentissage", "itération"]
+      },
+      {
+        "id": "mot-024",
+        "text": "Le meilleur moment pour commencer était hier. Le deuxième meilleur moment, c'est maintenant.",
+        "tags": ["action", "maintenant"]
+      },
+      {
+        "id": "mot-025",
+        "text": "Votre mission n'est pas juste de faire du business — c'est de créer quelque chose qui vaut la peine d'être créé.",
+        "tags": ["mission", "sens"]
+      },
+      {
+        "id": "mot-026",
+        "text": "Un petit pas en avant tous les jours mène à des progrès extraordinaires sur le long terme.",
+        "tags": ["progression", "long terme"]
+      },
+      {
+        "id": "mot-027",
+        "text": "Les meilleures idées émergent souvent quand on est en train de résoudre les problèmes les plus difficiles.",
+        "tags": ["créativité", "problèmes"]
+      },
+      {
+        "id": "mot-028",
+        "text": "Donnez-vous la permission de faire quelque chose d'extraordinaire aujourd'hui.",
+        "tags": ["permission", "excellence"]
+      },
+      {
+        "id": "mot-029",
+        "text": "Chaque sprint terminé, chaque objectif atteint — c'est de la valeur créée pour vos utilisateurs.",
+        "tags": ["sprint", "valeur"]
+      },
+      {
+        "id": "mot-030",
+        "text": "L'énergie que vous mettez dans votre travail aujourd'hui reviendra multipliée demain.",
+        "tags": ["énergie", "retour"]
+      },
+      {
+        "id": "mot-031",
+        "text": "Construire quelque chose à partir de rien est l'un des actes les plus courageux qui soit. Chapeau.",
+        "tags": ["courage", "création"]
+      },
+      {
+        "id": "mot-032",
+        "text": "Focus sur ce que vous pouvez contrôler. Exécutez brillamment. Les résultats suivront.",
+        "tags": ["focus", "contrôle"]
+      },
+      {
+        "id": "mot-033",
+        "text": "La discipline crée la liberté. Plus vous travaillez avec méthode, plus vous avancez vite.",
+        "tags": ["discipline", "méthode"]
+      },
+      {
+        "id": "mot-034",
+        "text": "Votre capacité à apprendre plus vite que la concurrence est votre avantage compétitif ultime.",
+        "tags": ["apprentissage", "compétition"]
+      },
+      {
+        "id": "mot-035",
+        "text": "Chaque feedback utilisateur est un trésor. Il vous dit exactement comment créer plus de valeur.",
+        "tags": ["feedback", "utilisateurs"]
+      },
+      {
+        "id": "mot-036",
+        "text": "Les pivots ne sont pas des échecs — ce sont des preuves que vous écoutez et vous adaptez.",
+        "tags": ["pivot", "adaptation"]
+      },
+      {
+        "id": "mot-037",
+        "text": "Aujourd'hui, quelqu'un quelque part a besoin exactement de ce que vous êtes en train de construire.",
+        "tags": ["impact", "sens"]
+      },
+      {
+        "id": "mot-038",
+        "text": "La clarté vient de l'action, pas de la réflexion seule. Bougez, apprenez, ajustez.",
+        "tags": ["clarté", "action"]
+      },
+      {
+        "id": "mot-039",
+        "text": "Votre produit n'a pas besoin d'être parfait — il a besoin d'être utile. Livrez de la valeur.",
+        "tags": ["produit", "valeur"]
+      },
+      {
+        "id": "mot-040",
+        "text": "Les entrepreneurs qui réussissent ne sont pas ceux qui évitent les erreurs, mais ceux qui les corrigent vite.",
+        "tags": ["erreurs", "agilité"]
+      }
+    ],
+    "wellbeing": [
+      {
+        "id": "well-001",
+        "text": "Rappel : une pause de 5 minutes améliore votre productivité pour les 2 heures suivantes. Soufflez.",
+        "tags": ["pause", "productivité"]
+      },
+      {
+        "id": "well-002",
+        "text": "Vous ne pouvez pas donner ce que vous n'avez pas. Prenez soin de vous pour prendre soin de votre équipe.",
+        "tags": ["équilibre", "soin"]
+      },
+      {
+        "id": "well-003",
+        "text": "Le cerveau humain n'est pas conçu pour des sessions de concentration de 4h. Découpez votre travail en sprints de 25-45 min.",
+        "tags": ["cerveau", "Pomodoro"]
+      },
+      {
+        "id": "well-004",
+        "text": "Boire de l'eau régulièrement améliore la concentration de 14%. C'est une optimisation gratuite.",
+        "tags": ["hydratation", "concentration"]
+      },
+      {
+        "id": "well-005",
+        "text": "Le stress est normal dans le contexte startup. Mais géré avec méthode, il devient du carburant.",
+        "tags": ["stress", "gestion"]
+      },
+      {
+        "id": "well-006",
+        "text": "Un sommeil de qualité est votre meilleur investissement performance. Protégez vos 7-8 heures.",
+        "tags": ["sommeil", "performance"]
+      },
+      {
+        "id": "well-007",
+        "text": "Reconnaître ses limites n'est pas une faiblesse — c'est de l'intelligence émotionnelle.",
+        "tags": ["limites", "intelligence émotionnelle"]
+      },
+      {
+        "id": "well-008",
+        "text": "Le burnout est ennemi de la performance sur le long terme. Prévenez-le en préservant de l'énergie chaque jour.",
+        "tags": ["burnout", "prévention"]
+      },
+      {
+        "id": "well-009",
+        "text": "Une courte marche de 10 min après le déjeuner booste créativité et humeur pour l'après-midi.",
+        "tags": ["marche", "créativité"]
+      },
+      {
+        "id": "well-010",
+        "text": "Célébrez les petites victoires autant que les grandes. La dopamine du succès alimente la motivation.",
+        "tags": ["célébration", "dopamine"]
+      },
+      {
+        "id": "well-011",
+        "text": "Il est ok de ne pas avoir toutes les réponses. Ce qui compte, c'est votre capacité à trouver les bonnes questions.",
+        "tags": ["questions", "incertitude"]
+      },
+      {
+        "id": "well-012",
+        "text": "Le travail en présentiel ou à distance fonctionne quand on se respecte mutuellement les rythmes.",
+        "tags": ["remote", "rythmes"]
+      },
+      {
+        "id": "well-013",
+        "text": "Votre énergie mentale est une ressource limitée. Utilisez-la pour les décisions qui comptent vraiment.",
+        "tags": ["énergie", "décisions"]
+      },
+      {
+        "id": "well-014",
+        "text": "3 respirations profondes peuvent réduire votre niveau de stress de 30% en moins d'une minute.",
+        "tags": ["respiration", "stress"]
+      },
+      {
+        "id": "well-015",
+        "text": "Posez votre téléphone pendant les repas. Ce moment de déconnexion vaut de l'or pour votre cerveau.",
+        "tags": ["déconnexion", "repas"]
+      },
+      {
+        "id": "well-016",
+        "text": "Le perfectionnisme non maîtrisé est l'ennemi du bien. Parfois, 'assez bien' est la bonne décision.",
+        "tags": ["perfectionnisme", "pragmatisme"]
+      },
+      {
+        "id": "well-017",
+        "text": "Tenez un journal de gratitude : noter 3 choses positives par jour améliore le bien-être sur 3 semaines.",
+        "tags": ["gratitude", "bien-être"]
+      },
+      {
+        "id": "well-018",
+        "text": "Vous avez le droit de dire non. Les meilleures priorités nécessitent de déprioriser le reste.",
+        "tags": ["priorités", "non"]
+      },
+      {
+        "id": "well-019",
+        "text": "La charge mentale d'un entrepreneur est réelle. Partagez-la avec votre équipe, ne la portez pas seul.",
+        "tags": ["charge mentale", "partage"]
+      },
+      {
+        "id": "well-020",
+        "text": "Levez-vous, étirez-vous, bougez. Votre corps est votre principal outil de travail — entretenez-le.",
+        "tags": ["corps", "mouvement"]
+      },
+      {
+        "id": "well-021",
+        "text": "Un environnement de travail ordonné réduit la charge cognitive. Quelques minutes de rangement font la différence.",
+        "tags": ["environnement", "cognition"]
+      },
+      {
+        "id": "well-022",
+        "text": "Le soutien mutuel dans une équipe est l'un des meilleurs indicateurs de sa résilience. Soyez là les uns pour les autres.",
+        "tags": ["soutien", "résilience"]
+      },
+      {
+        "id": "well-023",
+        "text": "Il est normal que certains jours soient difficiles. Demain, vous attaquez avec un regard neuf.",
+        "tags": ["difficultés", "résilience"]
+      },
+      {
+        "id": "well-024",
+        "text": "Votre valeur ne se résume pas à votre productivité. Vous êtes bien plus que ce que vous produisez.",
+        "tags": ["valeur", "identité"]
+      },
+      {
+        "id": "well-025",
+        "text": "L'anxiété des deadlines est normale. Divisez la tâche en micro-étapes et attaquez-en une seule à la fois.",
+        "tags": ["anxiété", "deadlines"]
+      },
+      {
+        "id": "well-026",
+        "text": "Prendre une vraie pause déjeuner, loin des écrans, améliore la qualité du travail l'après-midi.",
+        "tags": ["déjeuner", "déconnexion"]
+      },
+      {
+        "id": "well-027",
+        "text": "L'empathie dans les équipes techniques est une super-puissance souvent sous-estimée.",
+        "tags": ["empathie", "équipe"]
+      },
+      {
+        "id": "well-028",
+        "text": "Si vous n'avez pas dormi suffisamment, certaines décisions peuvent attendre demain. Votre jugement sera meilleur.",
+        "tags": ["sommeil", "décisions"]
+      },
+      {
+        "id": "well-029",
+        "text": "Exprimez votre gratitude envers vos collègues aujourd'hui. Les équipes qui se remercient performent mieux.",
+        "tags": ["gratitude", "performance"]
+      },
+      {
+        "id": "well-030",
+        "text": "Le plaisir dans le travail n'est pas un luxe — c'est un indicateur de santé d'équipe à soigner.",
+        "tags": ["plaisir", "santé équipe"]
+      },
+      {
+        "id": "well-031",
+        "text": "Coupez les notifications pendant 2h par jour. La concentration profonde est votre ressource la plus précieuse.",
+        "tags": ["focus", "notifications"]
+      },
+      {
+        "id": "well-032",
+        "text": "Un 'comment tu vas vraiment ?' peut transformer une relation de travail.",
+        "tags": ["connexion", "authenticité"]
+      },
+      {
+        "id": "well-033",
+        "text": "L'humour est un outil de cohésion d'équipe. N'hésitez pas à rire ensemble.",
+        "tags": ["humour", "cohésion"]
+      },
+      {
+        "id": "well-034",
+        "text": "Si vous ressentez de l'overwhelm, priorisez une seule chose. Une seule. Et faites-la bien.",
+        "tags": ["overwhelm", "priorité"]
+      },
+      {
+        "id": "well-035",
+        "text": "Le temps passé sur des activités ressourçantes n'est pas du temps perdu — c'est un investissement.",
+        "tags": ["ressourcement", "investissement"]
+      },
+      {
+        "id": "well-036",
+        "text": "Reconnaître l'effort de quelqu'un, même sans résultat visible, est un acte de leadership fort.",
+        "tags": ["reconnaissance", "leadership"]
+      },
+      {
+        "id": "well-037",
+        "text": "Sortir la tête du guidon 10 minutes par jour pour réfléchir au 'pourquoi' renforce l'engagement.",
+        "tags": ["recul", "sens"]
+      },
+      {
+        "id": "well-038",
+        "text": "La vulnérabilité partagée renforce la confiance dans une équipe. Oser dire 'je ne sais pas' est une force.",
+        "tags": ["vulnérabilité", "confiance"]
+      },
+      {
+        "id": "well-039",
+        "text": "Mangez quelque chose de nutritif aujourd'hui. L'alimentation impacte directement votre clarté mentale.",
+        "tags": ["nutrition", "clarté"]
+      },
+      {
+        "id": "well-040",
+        "text": "Une équipe qui prend soin d'elle-même livre un meilleur produit. Le bien-être est une stratégie de performance.",
+        "tags": ["bien-être", "performance"]
+      }
+    ],
+    "focus": [
+      {
+        "id": "foc-001",
+        "text": "Mode focus activé. Fermez les onglets inutiles, coupez les notifications, et attaquez votre priorité #1.",
+        "tags": ["focus", "productivité"]
+      },
+      {
+        "id": "foc-002",
+        "text": "Deep work : les sessions de travail intense sans interruption produisent 4x plus de valeur. Protégez ce temps.",
+        "tags": ["deep work", "productivité"]
+      },
+      {
+        "id": "foc-003",
+        "text": "Identifiez votre tâche la plus importante du jour et commencez par elle. Le reste s'aligne.",
+        "tags": ["priorité", "MIT"]
+      },
+      {
+        "id": "foc-004",
+        "text": "La technique Pomodoro : 25 min de focus intense, 5 min de pause. Essayez sur votre prochain bloc de travail.",
+        "tags": ["Pomodoro", "technique"]
+      },
+      {
+        "id": "foc-005",
+        "text": "Distinguez l'urgent de l'important. Aujourd'hui, travaillez sur ce qui est important.",
+        "tags": ["urgent", "important"]
+      },
+      {
+        "id": "foc-006",
+        "text": "Le multitasking réduit la performance de 40%. Faites une chose à la fois, faites-la bien.",
+        "tags": ["multitasking", "performance"]
+      },
+      {
+        "id": "foc-007",
+        "text": "Commencez par la tâche que vous redoutez le plus. Une fois faite, tout le reste sera plus léger.",
+        "tags": ["procrastination", "priorité"]
+      },
+      {
+        "id": "foc-008",
+        "text": "Bloquez 2h dans votre agenda pour du travail profond aujourd'hui. Défendez ce temps.",
+        "tags": ["agenda", "deep work"]
+      },
+      {
+        "id": "foc-009",
+        "text": "Les meilleures idées viennent souvent après une période de concentration intense. Plongez-y.",
+        "tags": ["créativité", "concentration"]
+      },
+      {
+        "id": "foc-010",
+        "text": "Chaque interruption coûte 23 minutes de réconcentration. Protégez votre élan.",
+        "tags": ["interruptions", "élan"]
+      },
+      {
+        "id": "foc-011",
+        "text": "Définissez 3 objectifs clairs pour aujourd'hui. Pas 10 — 3. Et atteignez-les.",
+        "tags": ["objectifs", "clarté"]
+      },
+      {
+        "id": "foc-012",
+        "text": "Si une tâche prend moins de 2 minutes, faites-la maintenant. Sinon, planifiez-la.",
+        "tags": ["GTD", "efficacité"]
+      },
+      {
+        "id": "foc-013",
+        "text": "Le travail se dilate pour remplir le temps disponible. Fixez des limites de temps pour chaque tâche.",
+        "tags": ["timeboxing", "Parkinson"]
+      },
+      {
+        "id": "foc-014",
+        "text": "Votre cerveau en mode focus matinal est votre actif le plus précieux. Utilisez-le pour les tâches créatives.",
+        "tags": ["matin", "créativité"]
+      },
+      {
+        "id": "foc-015",
+        "text": "Batchez les réunions, les emails, les messages. Ne laissez pas ces tâches fragmenter votre journée.",
+        "tags": ["batch", "réunions"]
+      },
+      {
+        "id": "foc-016",
+        "text": "Un environnement silencieux ou une playlist instrumentale peuvent multiplier votre concentration.",
+        "tags": ["environnement", "musique"]
+      },
+      {
+        "id": "foc-017",
+        "text": "Avant chaque réunion, demandez-vous : est-ce que cela fait avancer vos objectifs clés ?",
+        "tags": ["réunions", "objectifs"]
+      },
+      {
+        "id": "foc-018",
+        "text": "La règle des 80/20 : 20% de vos actions génèrent 80% de vos résultats. Identifiez ces 20%.",
+        "tags": ["Pareto", "priorité"]
+      },
+      {
+        "id": "foc-019",
+        "text": "Terminez votre journée en préparant votre to-do du lendemain. Votre cerveau se reposera mieux.",
+        "tags": ["to-do", "planification"]
+      },
+      {
+        "id": "foc-020",
+        "text": "La clarté des objectifs multiplie la vitesse d'exécution. Soyez précis sur ce que 'terminé' signifie.",
+        "tags": ["objectifs", "clarté"]
+      },
+      {
+        "id": "foc-021",
+        "text": "Éliminez, automatisez, déléguez — dans cet ordre. Ne faites que ce que seul vous pouvez faire.",
+        "tags": ["délégation", "automatisation"]
+      },
+      {
+        "id": "foc-022",
+        "text": "Une inbox à zéro n'est pas un objectif de productivité — c'est un sous-produit d'un bon système.",
+        "tags": ["emails", "système"]
+      },
+      {
+        "id": "foc-023",
+        "text": "Revue hebdomadaire : 30 minutes pour faire le bilan, ajuster les priorités, et repartir avec clarté.",
+        "tags": ["revue", "hebdomadaire"]
+      },
+      {
+        "id": "foc-024",
+        "text": "Un objectif sans deadline est juste un souhait. Donnez une date à vos priorités.",
+        "tags": ["deadline", "objectifs"]
+      },
+      {
+        "id": "foc-025",
+        "text": "Les meilleures équipes ont des rituels d'alignement. Un standup efficace peut transformer la journée.",
+        "tags": ["standup", "alignement"]
+      },
+      {
+        "id": "foc-026",
+        "text": "La documentation aujourd'hui évite les blocages demain. Documentez pendant que c'est frais.",
+        "tags": ["documentation", "efficacité"]
+      },
+      {
+        "id": "foc-027",
+        "text": "Livrez tôt, livrez souvent. Le feedback rapide vaut mieux que la perfection tardive.",
+        "tags": ["livraison", "feedback"]
+      },
+      {
+        "id": "foc-028",
+        "text": "Mesurez ce qui compte. Ce qui n'est pas mesuré ne peut pas être amélioré.",
+        "tags": ["mesure", "amélioration"]
+      },
+      {
+        "id": "foc-029",
+        "text": "Réduire le WIP (work in progress) augmente la vélocité globale. Finissez avant de commencer.",
+        "tags": ["WIP", "vélocité"]
+      },
+      {
+        "id": "foc-030",
+        "text": "Un backlog bien priorisé est la différence entre une équipe efficace et une équipe épuisée.",
+        "tags": ["backlog", "priorité"]
+      },
+      {
+        "id": "foc-031",
+        "text": "La loi de Hofstadter : tout prend toujours plus de temps que prévu, même en tenant compte de cette loi.",
+        "tags": ["estimation", "humour"]
+      },
+      {
+        "id": "foc-032",
+        "text": "Automatisez les tâches répétitives dès que possible. Votre temps créatif est trop précieux.",
+        "tags": ["automatisation", "temps"]
+      },
+      {
+        "id": "foc-033",
+        "text": "Définissez votre 'done'. Une tâche sans critère de succès clair ne sera jamais vraiment terminée.",
+        "tags": ["done", "clarté"]
+      },
+      {
+        "id": "foc-034",
+        "text": "Les sprints agiles existent pour une bonne raison : l'urgence de la deadline crée du focus.",
+        "tags": ["sprint", "agile"]
+      },
+      {
+        "id": "foc-035",
+        "text": "Chaque fois que vous dites 'oui' à quelque chose, vous dites 'non' à autre chose. Choisissez bien.",
+        "tags": ["priorisation", "choix"]
+      },
+      {
+        "id": "foc-036",
+        "text": "Le flow state — cette zone de concentration totale — se cultive. Protégez les conditions pour y entrer.",
+        "tags": ["flow", "concentration"]
+      },
+      {
+        "id": "foc-037",
+        "text": "Résoudre les bottlenecks en premier amplifie la performance de toute la chaîne.",
+        "tags": ["bottleneck", "performance"]
+      },
+      {
+        "id": "foc-038",
+        "text": "Le code propre d'aujourd'hui évite la dette technique de demain. Prenez ce temps.",
+        "tags": ["code", "dette technique"]
+      },
+      {
+        "id": "foc-039",
+        "text": "Un ticket bien décrit prend 5 minutes à écrire et économise 2 heures de clarifications.",
+        "tags": ["tickets", "communication"]
+      },
+      {
+        "id": "foc-040",
+        "text": "La simplicité est la sophistication ultime. Quand vous pouvez expliquer quelque chose simplement, vous le maîtrisez.",
+        "tags": ["simplicité", "maîtrise"]
+      }
+    ],
+    "team": [
+      {
+        "id": "team-001",
+        "text": "Les grandes startups ne sont pas construites par des individus brillants — elles sont construites par des équipes soudées.",
+        "tags": ["équipe", "soudée"]
+      },
+      {
+        "id": "team-002",
+        "text": "La confiance est le fondement de toute collaboration efficace. Elle se construit par des actes cohérents dans le temps.",
+        "tags": ["confiance", "collaboration"]
+      },
+      {
+        "id": "team-003",
+        "text": "Un feedback bien donné est le cadeau le plus précieux que vous pouvez faire à un collègue.",
+        "tags": ["feedback", "cadeau"]
+      },
+      {
+        "id": "team-004",
+        "text": "Célébrer les victoires ensemble, grandes et petites, crée la culture d'une équipe gagnante.",
+        "tags": ["célébration", "culture"]
+      },
+      {
+        "id": "team-005",
+        "text": "La diversité de perspectives dans une équipe n'est pas un défi à gérer — c'est un avantage à cultiver.",
+        "tags": ["diversité", "perspectives"]
+      },
+      {
+        "id": "team-006",
+        "text": "Les meilleures décisions d'équipe émergent d'un débat sain où chacun peut s'exprimer librement.",
+        "tags": ["décisions", "débat"]
+      },
+      {
+        "id": "team-007",
+        "text": "Apprenez à connaître vos collègues au-delà de leur rôle. Les relations humaines boostent la performance.",
+        "tags": ["relations", "humain"]
+      },
+      {
+        "id": "team-008",
+        "text": "La sécurité psychologique — pouvoir prendre des risques sans crainte — est le facteur #1 des équipes performantes.",
+        "tags": ["sécurité psychologique", "performance"]
+      },
+      {
+        "id": "team-009",
+        "text": "Quand quelqu'un fait une erreur, l'équipe gagne une leçon. Cultivez une culture d'apprentissage, pas de blâme.",
+        "tags": ["erreurs", "apprentissage"]
+      },
+      {
+        "id": "team-010",
+        "text": "Les réunions efficaces ont une durée définie, un ordre du jour clair, et se terminent par des actions concrètes.",
+        "tags": ["réunions", "efficacité"]
+      },
+      {
+        "id": "team-011",
+        "text": "L'alignement sur la mission évite des milliers de désaccords inutiles. Rappelons-nous pourquoi on fait ça.",
+        "tags": ["alignement", "mission"]
+      },
+      {
+        "id": "team-012",
+        "text": "Un cofondateur ou collègue qui challenge vos idées est plus précieux qu'un qui acquiesce toujours.",
+        "tags": ["challenge", "préciosité"]
+      },
+      {
+        "id": "team-013",
+        "text": "Partagez vos apprentissages. Ce que vous savez peut débloquer quelqu'un d'autre dans l'équipe.",
+        "tags": ["partage", "apprentissage"]
+      },
+      {
+        "id": "team-014",
+        "text": "La transparence dans les décisions importantes renforce la confiance et l'engagement de toute l'équipe.",
+        "tags": ["transparence", "engagement"]
+      },
+      {
+        "id": "team-015",
+        "text": "Les rituels d'équipe — qu'ils soient formels ou informels — créent de l'appartenance et de la cohésion.",
+        "tags": ["rituels", "appartenance"]
+      },
+      {
+        "id": "team-016",
+        "text": "Le conflit bien géré renforce les équipes. L'évitement du conflit les affaiblit.",
+        "tags": ["conflit", "gestion"]
+      },
+      {
+        "id": "team-017",
+        "text": "Avoir des rôles clairs évite les frictions inutiles et libère l'énergie pour l'essentiel.",
+        "tags": ["rôles", "clarté"]
+      },
+      {
+        "id": "team-018",
+        "text": "Un 'merci' sincère entre collègues coûte zéro et a un impact réel sur l'ambiance et la motivation.",
+        "tags": ["gratitude", "ambiance"]
+      },
+      {
+        "id": "team-019",
+        "text": "Les équipes qui communiquent ouvertement sur leurs blocages avancent 2x plus vite.",
+        "tags": ["communication", "blocages"]
+      },
+      {
+        "id": "team-020",
+        "text": "L'onboarding d'un nouveau membre est l'investissement le plus rentable que vous puissiez faire.",
+        "tags": ["onboarding", "investissement"]
+      },
+      {
+        "id": "team-021",
+        "text": "Écoutez pour comprendre, pas seulement pour répondre. C'est la base d'une vraie collaboration.",
+        "tags": ["écoute", "compréhension"]
+      },
+      {
+        "id": "team-022",
+        "text": "Un équipe qui rit ensemble reste ensemble. Ne négligez pas les moments de légèreté.",
+        "tags": ["humour", "cohésion"]
+      },
+      {
+        "id": "team-023",
+        "text": "La coresponsabilité — 'c'est notre problème, pas ton problème' — est le marqueur des équipes matures.",
+        "tags": ["responsabilité", "maturité"]
+      },
+      {
+        "id": "team-024",
+        "text": "Investissez dans le développement de chaque membre de l'équipe. Leur croissance est votre croissance.",
+        "tags": ["développement", "croissance"]
+      },
+      {
+        "id": "team-025",
+        "text": "Les meilleures équipes savent quand ralentir pour aller plus vite ensuite.",
+        "tags": ["rythme", "stratégie"]
+      },
+      {
+        "id": "team-026",
+        "text": "Documentez vos décisions importantes. La mémoire collective d'une équipe est un actif stratégique.",
+        "tags": ["documentation", "mémoire"]
+      },
+      {
+        "id": "team-027",
+        "text": "Un équipe diversifiée qui s'accorde sur les valeurs fondamentales est imbattable.",
+        "tags": ["diversité", "valeurs"]
+      },
+      {
+        "id": "team-028",
+        "text": "Le meilleur leader n'est pas celui qui a toutes les réponses, mais celui qui pose les bonnes questions.",
+        "tags": ["leadership", "questions"]
+      },
+      {
+        "id": "team-029",
+        "text": "Faites de la bienveillance une valeur non-négociable dans votre équipe. Elle paie des dividendes à long terme.",
+        "tags": ["bienveillance", "valeurs"]
+      },
+      {
+        "id": "team-030",
+        "text": "La reconnaissance publique des efforts individuels est un multiplicateur de motivation pour toute l'équipe.",
+        "tags": ["reconnaissance", "motivation"]
+      },
+      {
+        "id": "team-031",
+        "text": "Des points individuels réguliers permettent d'identifier les blocages avant qu'ils deviennent des problèmes.",
+        "tags": ["1on1", "blocages"]
+      },
+      {
+        "id": "team-032",
+        "text": "L'autonomie responsable — confiance + responsabilisation — est la recette d'une équipe épanouie.",
+        "tags": ["autonomie", "confiance"]
+      },
+      {
+        "id": "team-033",
+        "text": "Les équipes qui se donnent des retours réguliers progressent plus vite que celles qui attendent les évals annuelles.",
+        "tags": ["feedback", "progression"]
+      },
+      {
+        "id": "team-034",
+        "text": "Créer un espace où les idées folles sont bienvenues est souvent la source de la prochaine grande innovation.",
+        "tags": ["idées", "innovation"]
+      },
+      {
+        "id": "team-035",
+        "text": "La culture d'équipe est ce qui se passe quand le manager n'est pas dans la salle.",
+        "tags": ["culture", "manager"]
+      },
+      {
+        "id": "team-036",
+        "text": "Partagez la vision régulièrement. Les équipes perdent l'alignement naturellement — le rappel est nécessaire.",
+        "tags": ["vision", "alignement"]
+      },
+      {
+        "id": "team-037",
+        "text": "Un équipe qui s'améliore collectivement chaque sprint est une équipe qui gagne sur le long terme.",
+        "tags": ["amélioration continue", "sprint"]
+      },
+      {
+        "id": "team-038",
+        "text": "La rapidité avec laquelle une équipe se remet d'un échec définit sa maturité.",
+        "tags": ["résilience", "maturité"]
+      },
+      {
+        "id": "team-039",
+        "text": "Les discussions difficiles tôt évitent les crises tard. Ayez le courage des conversations nécessaires.",
+        "tags": ["conversations", "courage"]
+      },
+      {
+        "id": "team-040",
+        "text": "Vous n'êtes pas juste des collègues — vous construisez quelque chose ensemble. C'est rare. Chérissez-le.",
+        "tags": ["équipe", "sens"]
+      }
+    ],
+    "fun": [
+      {
+        "id": "fun-001",
+        "text": "Fun fact : le premier bug informatique était une vraie bestiole (un papillon de nuit) coincée dans un relais en 1947.",
+        "tags": ["histoire", "bug"]
+      },
+      {
+        "id": "fun-002",
+        "text": "Pro tip du jour : si votre code marche du premier coup, vérifiez que vous avez bien sauvegardé le bon fichier. 😄",
+        "tags": ["dev", "humour"]
+      },
+      {
+        "id": "fun-003",
+        "text": "Les études montrent que les équipes avec un bon sens de l'humour sont plus créatives. C'est une excuse validée scientifiquement pour rigoler.",
+        "tags": ["humour", "créativité"]
+      },
+      {
+        "id": "fun-004",
+        "text": "Saviez-vous que rubber duck debugging — expliquer votre problème à un canard en plastique — est une vraie technique de dev ?",
+        "tags": ["debugging", "canard"]
+      },
+      {
+        "id": "fun-005",
+        "text": "La règle du vendredi : si vous n'avez rien déployé qui casse le week-end, c'est une victoire.",
+        "tags": ["vendredi", "déploiement"]
+      },
+      {
+        "id": "fun-006",
+        "text": "Il existe une loi de l'informatique qui dit : 'ça marche sur ma machine'. C'est la version optimiste du développement.",
+        "tags": ["dev", "humour"]
+      },
+      {
+        "id": "fun-007",
+        "text": "Les entrepreneurs en série disent que leur 2ème startup est moins stressante. Parce qu'ils savent déjà comment survivre au chaos.",
+        "tags": ["entrepreneur", "humour"]
+      },
+      {
+        "id": "fun-008",
+        "text": "Si votre standup prend 25 minutes, c'est probablement une réunion déguisée. 😏",
+        "tags": ["standup", "humour"]
+      },
+      {
+        "id": "fun-009",
+        "text": "L'inventeur de copy-paste a déclaré que c'était sa plus grande fierté et son plus grand regret. Ctrl+C, Ctrl+V nous comprend.",
+        "tags": ["histoire", "copy-paste"]
+      },
+      {
+        "id": "fun-010",
+        "text": "Question du jour : est-ce que le code qui ne sera jamais lu par un humain a besoin de commentaires ?",
+        "tags": ["philosophie", "code"]
+      },
+      {
+        "id": "fun-011",
+        "text": "Les meilleures features arrivent souvent d'un 'hey, et si on faisait...' pendant une pause café.",
+        "tags": ["café", "innovation"]
+      },
+      {
+        "id": "fun-012",
+        "text": "Fun fact : 'Googol' (le nombre 10^100) a inspiré le nom Google, après une faute d'orthographe lors de l'enregistrement du domaine.",
+        "tags": ["histoire", "Google"]
+      },
+      {
+        "id": "fun-013",
+        "text": "Le seul endroit où 'travailler dur' précède 'réussite' dans le dictionnaire... c'est dans le dictionnaire.",
+        "tags": ["humour", "travail"]
+      },
+      {
+        "id": "fun-014",
+        "text": "Le titre officieux de tout développeur : 'quelqu'un qui transforme du café en code, et des bugs en caféine'.",
+        "tags": ["dev", "café"]
+      },
+      {
+        "id": "fun-015",
+        "text": "Rappel du vendredi : les gens qui vous semblent surhumains ont aussi des moments de doute. Et ils mangent de la pizza froide parfois.",
+        "tags": ["vendredi", "humanité"]
+      },
+      {
+        "id": "fun-016",
+        "text": "La loi de Murphy pour les startups : si quelque chose peut planter lors d'une démo, il plantera lors de la démo.",
+        "tags": ["Murphy", "démo"]
+      },
+      {
+        "id": "fun-017",
+        "text": "Mode 'ship it' activé : version 1.0 imparfaite > version parfaite qui n'existe pas encore.",
+        "tags": ["ship", "MVP"]
+      },
+      {
+        "id": "fun-018",
+        "text": "L'équipe qui mange ensemble reste ensemble. Commandez quelque chose de bon aujourd'hui.",
+        "tags": ["repas", "équipe"]
+      },
+      {
+        "id": "fun-019",
+        "text": "Si votre MVP n'est pas un peu gênant à montrer, c'est que vous avez attendu trop longtemps.",
+        "tags": ["MVP", "honte productive"]
+      },
+      {
+        "id": "fun-020",
+        "text": "La différence entre un problème et une opportunité ? La présentation PowerPoint.",
+        "tags": ["humour", "slides"]
+      }
+    ]
+  }
+}
