@@ -60,6 +60,52 @@ const commands = [
       subcommand
         .setName('settings')
         .setDescription('Configure Happy Manager for this server (Admin only)')
+        .addChannelOption((option) =>
+          option
+            .setName('channel')
+            .setDescription('Channel where scheduled messages will be posted')
+            .setRequired(false)
+        )
+        .addStringOption((option) =>
+          option
+            .setName('timezone')
+            .setDescription('Server timezone (e.g., Europe/Paris, America/New_York)')
+            .setRequired(false)
+        )
+        .addIntegerOption((option) =>
+          option
+            .setName('cadence')
+            .setDescription('Number of messages per day')
+            .setRequired(false)
+            .addChoices(
+              { name: '2 messages per day', value: 2 },
+              { name: '3 messages per day', value: 3 }
+            )
+        )
+        .addStringOption((option) =>
+          option
+            .setName('active_days')
+            .setDescription('Active days (1=Mon, 7=Sun, e.g., "1,2,3,4,5" for weekdays)')
+            .setRequired(false)
+        )
+        .addStringOption((option) =>
+          option
+            .setName('slot1')
+            .setDescription('First message time (HH:MM format, e.g., 09:15)')
+            .setRequired(false)
+        )
+        .addStringOption((option) =>
+          option
+            .setName('slot2')
+            .setDescription('Second message time (HH:MM format, e.g., 16:30)')
+            .setRequired(false)
+        )
+        .addStringOption((option) =>
+          option
+            .setName('slot3')
+            .setDescription('Third message time (HH:MM format, e.g., 12:45)')
+            .setRequired(false)
+        )
     )
     // /happy test [count?]
     .addSubcommand((subcommand) =>
