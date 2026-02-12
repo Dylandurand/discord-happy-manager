@@ -16,6 +16,7 @@ import { env } from './config/env';
 import { APP } from './config/constants';
 import { getDatabase, guildConfigRepo, sentRepo, cooldownRepo, closeDatabase } from './db';
 import { initializeClient, setupInteractionHandlers, shutdownClient } from './bot';
+import { startScheduler, stopScheduler } from './scheduler';
 
 /**
  * Main application entry point.
@@ -102,9 +103,9 @@ async function main(): Promise<void> {
       console.log('');
       console.log('🎉 Bot is ready! Listening for commands...');
       console.log('');
-      console.log('Next steps:');
-      console.log('  - Phase 4: Content System');
-      console.log('  - Phase 5: Scheduler');
+
+      // Phase 5: Start scheduler
+      startScheduler();
       console.log('');
     } catch (error) {
       console.error('❌ Failed to initialize Discord bot:', error);
@@ -122,15 +123,10 @@ async function main(): Promise<void> {
     console.log('  3. Copy the application ID to .env (DISCORD_CLIENT_ID)');
     console.log('  4. Restart the bot');
     console.log('');
-    console.log('Next steps:');
-    console.log('  - Phase 4: Content System');
-    console.log('  - Phase 5: Scheduler');
-    console.log('');
     console.log('⏸️  Exiting...');
     await cleanup();
   }
 
-  // TODO: Phase 5 - Start scheduler
 }
 
 /**
@@ -138,6 +134,7 @@ async function main(): Promise<void> {
  */
 async function cleanup(): Promise<void> {
   console.log('🧹 Cleaning up...');
+  stopScheduler();
   await shutdownClient();
   closeDatabase();
   console.log('✅ Cleanup complete');
