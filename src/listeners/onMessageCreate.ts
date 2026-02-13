@@ -23,6 +23,7 @@
 import type { Message } from 'discord.js';
 import { guildConfigRepo } from '@/db/guildConfigRepo';
 import { cooldownRepo } from '@/db/cooldownRepo';
+import { isInGrumpyChannel, handleGrumpyResult } from '@/listeners/onGrumpyResult';
 
 /**
  * Keywords that trigger contextual responses.
@@ -145,6 +146,15 @@ function getRandomResponse(): string {
  */
 export async function handleMessageCreate(message: Message): Promise<void> {
   try {
+    // ── Grumpy channel: process before the bot filter ──────────────────────
+    // Grumpy is a bot — its messages must be handled here, before we discard
+    // all bot messages below. Regular user messages in this channel are also
+    // passed to handleGrumpyResult, which silently ignores non-decision text.
+    if (isInGrumpyChannel(message)) {
+      await handleGrumpyResult(message);
+      return; // Don't apply contextual mode in the training channel
+    }
+
     // Ignore bot messages (including our own)
     if (message.author.bot) {
       return;
