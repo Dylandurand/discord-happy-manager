@@ -42,6 +42,7 @@ export const client = new Client({
     GatewayIntentBits.Guilds, // Required for slash commands
     GatewayIntentBits.GuildMessages, // Required for contextual mode
     GatewayIntentBits.MessageContent, // Required to read message content for contextual mode
+    GatewayIntentBits.GuildMembers, // Required to fetch all guild members (friday victories mentions)
   ],
 });
 
