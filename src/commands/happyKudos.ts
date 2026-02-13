@@ -18,8 +18,8 @@
 
 import type { ChatInputCommandInteraction, GuildMember, TextChannel } from 'discord.js';
 import { COOLDOWNS } from '@/config/constants';
-import { cooldownRepo, guildConfigRepo } from '@/db';
-import { replyEphemeral, formatDuration, getGuildChannel } from '@/utils/commandHelpers';
+import { cooldownRepo } from '@/db';
+import { replyEphemeral, formatDuration } from '@/utils/commandHelpers';
 import { getKudosProvider, type KudosCategory } from '@/content/kudosProvider';
 
 /**
@@ -53,7 +53,6 @@ export async function executeHappyKudos(
   }
 
   const senderId = interaction.user.id;
-  const guildId = interaction.guild.id;
 
   // Check per-user cooldown
   const cooldownKey = `user:${senderId}:kudos`;
@@ -107,17 +106,11 @@ export async function executeHappyKudos(
       impact
     );
 
-    // Determine target channel: configured > interaction channel
-    const config = guildConfigRepo.get(guildId);
-    let targetChannel: TextChannel | null = null;
-
-    if (config?.channelId) {
-      targetChannel = getGuildChannel(guildId, config.channelId);
-    }
-
-    if (targetChannel) {
+    // Send kudos in the channel where the command was used
+    const targetChannel = interaction.channel as TextChannel | null;
+    if (targetChannel && targetChannel.isTextBased()) {
       await targetChannel.send(kudosMessage);
-      await interaction.editReply(`✅ Kudos envoyés dans <#${targetChannel.id}> !`);
+      await interaction.editReply('✅ Kudos envoyés !');
     } else {
       await interaction.editReply({ content: '✅ Kudos envoyés !' });
       await interaction.followUp({
