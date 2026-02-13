@@ -25,6 +25,7 @@ import { executeHappyNow } from '@/commands/happyNow';
 import { executeHappySettings } from '@/commands/happySettings';
 import { executeHappyTest } from '@/commands/happyTest';
 import { executeHappyKudos } from '@/commands/happyKudos';
+import { executeHappyMessage } from '@/commands/happyMessage';
 
 /**
  * Sets up interaction event handlers on the Discord client.
@@ -101,6 +102,10 @@ async function handleChatInputCommand(
 
         case 'kudos':
           await executeHappyKudos(interaction);
+          break;
+
+        case 'message':
+          await executeHappyMessage(interaction);
           break;
 
         default:

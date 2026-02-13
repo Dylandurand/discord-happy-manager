@@ -179,6 +179,25 @@ const commands = [
             .setRequired(true)
             .setMaxLength(200)
         )
+    )
+    // /happy message content [channel?]
+    .addSubcommand((subcommand) =>
+      subcommand
+        .setName('message')
+        .setDescription('Envoyer un message libre au nom du bot (Admin uniquement)')
+        .addStringOption((option) =>
+          option
+            .setName('content')
+            .setDescription('Le message à envoyer')
+            .setRequired(true)
+            .setMaxLength(2000)
+        )
+        .addChannelOption((option) =>
+          option
+            .setName('channel')
+            .setDescription('Salon cible (par défaut : salon courant)')
+            .setRequired(false)
+        )
     ),
 ].map((command) => command.toJSON());
 
