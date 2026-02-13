@@ -32,6 +32,9 @@ logs/
 # Resources (IA only - not committed)
 resources/
 
+# Runtime-generated slot files
+data/caffe-slot.json
+
 # OS
 .DS_Store
 Thumbs.db
