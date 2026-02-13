@@ -1,0 +1,11 @@
+{
+  "guildId": "1468305469289402521",
+  "channelId": "1468305482367238268",
+  "timezone": "Europe/Paris",
+  "checkTime": "09:00",
+  "members": [
+    { "discordName": "Dylan",         "displayName": "Dylan", "month": 2,  "day": 13 },
+    { "discordName": "Alaycks",       "displayName": "Alex",  "month": 10, "day": 10 },
+    { "discordName": "CristoDouglas", "displayName": "Chris", "month": 4,  "day": 4  }
+  ]
+}

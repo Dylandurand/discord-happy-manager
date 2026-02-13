@@ -27,6 +27,7 @@
 import cron from 'node-cron';
 import { guildConfigRepo } from '@/db';
 import { sendScheduledMessage, isDayActive, isSlotScheduled } from './jobs';
+import { checkBirthdays } from '@/birthday/birthdayService';
 
 /**
  * Active cron task reference (for graceful shutdown).
@@ -186,6 +187,7 @@ export function startScheduler(): void {
 
   schedulerTask = cron.schedule('* * * * *', async () => {
     await processGuilds();
+    await checkBirthdays();
   }, {
     scheduled: true,
     timezone: 'UTC', // Cron runs in UTC; timezone conversion done per-guild
